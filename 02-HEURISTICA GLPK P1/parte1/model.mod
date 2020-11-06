@@ -25,6 +25,8 @@ maximize beneficio: sum{i in BILLETES,j in AVIONES} units[i,j]*precio_billetes[i
 
 /*Al menos el 60% de todos los billetes vendidos debe ser estandar*/
 s.t. pbilletes_estandar: sum{i in BILLETES,j in AVIONES} units[i,j]*porcentaje_estandar <= sum{k in AVIONES} units['estandar',k];
+
+/*BORRAR LO DE ABAJO*/
 #s.t. total : sum{i in BILLETES, j in AVIONES} units[i,j]<=600;
 
 /*minimo billetes leisure plus */
