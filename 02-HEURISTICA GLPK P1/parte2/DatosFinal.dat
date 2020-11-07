@@ -31,7 +31,7 @@ a5	2000;
 
 /* Precio de cada uno de los tipos de billetes (Euros) */
 param precio_billetes:=
-estandar	19
+estandar	    19
 leisure_plus	49
 business_plus	69;
 

@@ -1,0 +1,1108 @@
+Problem:    ModeloFinal
+Rows:       407
+Columns:    135 (135 integer, 120 binary)
+Non-zeros:  850
+Status:     INTEGER OPTIMAL
+Objective:  beneficioNeto = 21690 (MAXimum)
+
+   No.   Row name        Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 beneficioNeto
+                               21690                             
+     2 pbilletes_estandar
+                                   0                          -0 
+     3 min_leisure[a1]
+                                  58            20               
+     4 min_leisure[a2]
+                                  31            20               
+     5 min_leisure[a3]
+                                  23            20               
+     6 min_leisure[a4]
+                                  20            20               
+     7 min_leisure[a5]
+                                  21            20               
+     8 min_business[a1]
+                                  13            10               
+     9 min_business[a2]
+                                  51            10               
+    10 min_business[a3]
+                                  17            10               
+    11 min_business[a4]
+                                  30            10               
+    12 min_business[a5]
+                                  36            10               
+    13 max_asientos[a1]
+                                  90                          90 
+    14 max_asientos[a2]
+                                 120                         120 
+    15 max_asientos[a3]
+                                 200                         200 
+    16 max_asientos[a4]
+                                 150                         150 
+    17 max_asientos[a5]
+                                 190                         190 
+    18 max_carga[a1]
+                                1699                        1700 
+    19 max_carga[a2]
+                                2698                        2700 
+    20 max_carga[a3]
+                                1300                        1300 
+    21 max_carga[a4]
+                                1700                        1700 
+    22 max_carga[a5]
+                                1993                        2000 
+    23 llegadaAvion[a1]
+                                   1             1             = 
+    24 llegadaAvion[a2]
+                                   1             1             = 
+    25 llegadaAvion[a3]
+                                   1             1             = 
+    26 llegadaAvion[a4]
+                                   1             1             = 
+    27 llegadaAvion[a5]
+                                   1             1             = 
+    28 costePositivo[a1,p1,1]
+                                   0            -0               
+    29 costePositivo[a1,p1,2]
+                                   0            -0               
+    30 costePositivo[a1,p1,3]
+                                   0            -0               
+    31 costePositivo[a1,p1,4]
+                                   0            -0               
+    32 costePositivo[a1,p1,5]
+                                   0            -0               
+    33 costePositivo[a1,p1,6]
+                                   0            -0               
+    34 costePositivo[a1,p2,1]
+                                   0            -0               
+    35 costePositivo[a1,p2,2]
+                                   0            -0               
+    36 costePositivo[a1,p2,3]
+                                   0            -0               
+    37 costePositivo[a1,p2,4]
+                                   0            -0               
+    38 costePositivo[a1,p2,5]
+                                   0            -0               
+    39 costePositivo[a1,p2,6]
+                                   0            -0               
+    40 costePositivo[a1,p3,1]
+                                   0            -0               
+    41 costePositivo[a1,p3,2]
+                                 500            -0               
+    42 costePositivo[a1,p3,3]
+                                   0            -0               
+    43 costePositivo[a1,p3,4]
+                                   0            -0               
+    44 costePositivo[a1,p3,5]
+                                   0            -0               
+    45 costePositivo[a1,p3,6]
+                                   0            -0               
+    46 costePositivo[a1,p4,1]
+                                   0            -0               
+    47 costePositivo[a1,p4,2]
+                                   0            -0               
+    48 costePositivo[a1,p4,3]
+                                   0            -0               
+    49 costePositivo[a1,p4,4]
+                                   0            -0               
+    50 costePositivo[a1,p4,5]
+                                   0            -0               
+    51 costePositivo[a1,p4,6]
+                                   0            -0               
+    52 costePositivo[a2,p1,1]
+                                   0            -0               
+    53 costePositivo[a2,p1,2]
+                                   0            -0               
+    54 costePositivo[a2,p1,3]
+                                   0            -0               
+    55 costePositivo[a2,p1,4]
+                                   0            -0               
+    56 costePositivo[a2,p1,5]
+                                   0            -0               
+    57 costePositivo[a2,p1,6]
+                                   0            -0               
+    58 costePositivo[a2,p2,1]
+                                   0            -0               
+    59 costePositivo[a2,p2,2]
+                                   0            -0               
+    60 costePositivo[a2,p2,3]
+                                   0            -0               
+    61 costePositivo[a2,p2,4]
+                                   0            -0               
+    62 costePositivo[a2,p2,5]
+                                   0            -0               
+    63 costePositivo[a2,p2,6]
+                                   0            -0               
+    64 costePositivo[a2,p3,1]
+                                   0            -0               
+    65 costePositivo[a2,p3,2]
+                                   0            -0               
+    66 costePositivo[a2,p3,3]
+                                   0            -0               
+    67 costePositivo[a2,p3,4]
+                                   0            -0               
+    68 costePositivo[a2,p3,5]
+                                   0            -0               
+    69 costePositivo[a2,p3,6]
+                                   0            -0               
+    70 costePositivo[a2,p4,1]
+                                1000            -0               
+    71 costePositivo[a2,p4,2]
+                                   0            -0               
+    72 costePositivo[a2,p4,3]
+                                   0            -0               
+    73 costePositivo[a2,p4,4]
+                                   0            -0               
+    74 costePositivo[a2,p4,5]
+                                   0            -0               
+    75 costePositivo[a2,p4,6]
+                                   0            -0               
+    76 costePositivo[a3,p1,1]
+                                   0            -0               
+    77 costePositivo[a3,p1,2]
+                                   0            -0               
+    78 costePositivo[a3,p1,3]
+                                   0            -0               
+    79 costePositivo[a3,p1,4]
+                                   0            -0               
+    80 costePositivo[a3,p1,5]
+                                   0            -0               
+    81 costePositivo[a3,p1,6]
+                                   0            -0               
+    82 costePositivo[a3,p2,1]
+                                   0            -0               
+    83 costePositivo[a3,p2,2]
+                                   0            -0               
+    84 costePositivo[a3,p2,3]
+                                   0            -0               
+    85 costePositivo[a3,p2,4]
+                                 750            -0               
+    86 costePositivo[a3,p2,5]
+                                   0            -0               
+    87 costePositivo[a3,p2,6]
+                                   0            -0               
+    88 costePositivo[a3,p3,1]
+                                   0            -0               
+    89 costePositivo[a3,p3,2]
+                                   0            -0               
+    90 costePositivo[a3,p3,3]
+                                   0            -0               
+    91 costePositivo[a3,p3,4]
+                                   0            -0               
+    92 costePositivo[a3,p3,5]
+                                   0            -0               
+    93 costePositivo[a3,p3,6]
+                                   0            -0               
+    94 costePositivo[a3,p4,1]
+                                   0            -0               
+    95 costePositivo[a3,p4,2]
+                                   0            -0               
+    96 costePositivo[a3,p4,3]
+                                   0            -0               
+    97 costePositivo[a3,p4,4]
+                                   0            -0               
+    98 costePositivo[a3,p4,5]
+                                   0            -0               
+    99 costePositivo[a3,p4,6]
+                                   0            -0               
+   100 costePositivo[a4,p1,1]
+                                   0            -0               
+   101 costePositivo[a4,p1,2]
+                                   0            -0               
+   102 costePositivo[a4,p1,3]
+                                   0            -0               
+   103 costePositivo[a4,p1,4]
+                                   0            -0               
+   104 costePositivo[a4,p1,5]
+                                1250            -0               
+   105 costePositivo[a4,p1,6]
+                                   0            -0               
+   106 costePositivo[a4,p2,1]
+                                   0            -0               
+   107 costePositivo[a4,p2,2]
+                                   0            -0               
+   108 costePositivo[a4,p2,3]
+                                   0            -0               
+   109 costePositivo[a4,p2,4]
+                                   0            -0               
+   110 costePositivo[a4,p2,5]
+                                   0            -0               
+   111 costePositivo[a4,p2,6]
+                                   0            -0               
+   112 costePositivo[a4,p3,1]
+                                   0            -0               
+   113 costePositivo[a4,p3,2]
+                                   0            -0               
+   114 costePositivo[a4,p3,3]
+                                   0            -0               
+   115 costePositivo[a4,p3,4]
+                                   0            -0               
+   116 costePositivo[a4,p3,5]
+                                   0            -0               
+   117 costePositivo[a4,p3,6]
+                                   0            -0               
+   118 costePositivo[a4,p4,1]
+                                   0            -0               
+   119 costePositivo[a4,p4,2]
+                                   0            -0               
+   120 costePositivo[a4,p4,3]
+                                   0            -0               
+   121 costePositivo[a4,p4,4]
+                                   0            -0               
+   122 costePositivo[a4,p4,5]
+                                   0            -0               
+   123 costePositivo[a4,p4,6]
+                                   0            -0               
+   124 costePositivo[a5,p1,1]
+                                   0            -0               
+   125 costePositivo[a5,p1,2]
+                                   0            -0               
+   126 costePositivo[a5,p1,3]
+                                   0            -0               
+   127 costePositivo[a5,p1,4]
+                                   0            -0               
+   128 costePositivo[a5,p1,5]
+                                   0            -0               
+   129 costePositivo[a5,p1,6]
+                                   0            -0               
+   130 costePositivo[a5,p2,1]
+                                   0            -0               
+   131 costePositivo[a5,p2,2]
+                                   0            -0               
+   132 costePositivo[a5,p2,3]
+                                   0            -0               
+   133 costePositivo[a5,p2,4]
+                                   0            -0               
+   134 costePositivo[a5,p2,5]
+                                   0            -0               
+   135 costePositivo[a5,p2,6]
+                                   0            -0               
+   136 costePositivo[a5,p3,1]
+                                   0            -0               
+   137 costePositivo[a5,p3,2]
+                                   0            -0               
+   138 costePositivo[a5,p3,3]
+                                   0            -0               
+   139 costePositivo[a5,p3,4]
+                                   0            -0               
+   140 costePositivo[a5,p3,5]
+                                   0            -0               
+   141 costePositivo[a5,p3,6]
+                                   0            -0               
+   142 costePositivo[a5,p4,1]
+                                   0            -0               
+   143 costePositivo[a5,p4,2]
+                                   0            -0               
+   144 costePositivo[a5,p4,3]
+                                   0            -0               
+   145 costePositivo[a5,p4,4]
+                                   0            -0               
+   146 costePositivo[a5,p4,5]
+                                   0            -0               
+   147 costePositivo[a5,p4,6]
+                                1000            -0               
+   148 unAvionSlot[a1,p1,1]
+                                   0                          -0 
+   149 unAvionSlot[a1,p1,2]
+                                   0                          -0 
+   150 unAvionSlot[a1,p1,3]
+                                   0                          -0 
+   151 unAvionSlot[a1,p1,4]
+                                   0                          -0 
+   152 unAvionSlot[a1,p1,5]
+                                   0                           1 
+   153 unAvionSlot[a1,p1,6]
+                                   0                           1 
+   154 unAvionSlot[a1,p2,1]
+                                   0                          -0 
+   155 unAvionSlot[a1,p2,2]
+                                   0                          -0 
+   156 unAvionSlot[a1,p2,3]
+                                   0                           1 
+   157 unAvionSlot[a1,p2,4]
+                                   0                           1 
+   158 unAvionSlot[a1,p2,5]
+                                   0                          -0 
+   159 unAvionSlot[a1,p2,6]
+                                   0                          -0 
+   160 unAvionSlot[a1,p3,1]
+                                   0                           1 
+   161 unAvionSlot[a1,p3,2]
+                                   1                           1 
+   162 unAvionSlot[a1,p3,3]
+                                   0                           1 
+   163 unAvionSlot[a1,p3,4]
+                                   0                          -0 
+   164 unAvionSlot[a1,p3,5]
+                                   0                          -0 
+   165 unAvionSlot[a1,p3,6]
+                                   0                           1 
+   166 unAvionSlot[a1,p4,1]
+                                   0                           1 
+   167 unAvionSlot[a1,p4,2]
+                                   0                          -0 
+   168 unAvionSlot[a1,p4,3]
+                                   0                          -0 
+   169 unAvionSlot[a1,p4,4]
+                                   0                          -0 
+   170 unAvionSlot[a1,p4,5]
+                                   0                           1 
+   171 unAvionSlot[a1,p4,6]
+                                   0                           1 
+   172 unAvionSlot[a2,p1,1]
+                                   0                          -0 
+   173 unAvionSlot[a2,p1,2]
+                                   0                          -0 
+   174 unAvionSlot[a2,p1,3]
+                                   0                          -0 
+   175 unAvionSlot[a2,p1,4]
+                                   0                          -0 
+   176 unAvionSlot[a2,p1,5]
+                                   0                           1 
+   177 unAvionSlot[a2,p1,6]
+                                   0                           1 
+   178 unAvionSlot[a2,p2,1]
+                                   0                          -0 
+   179 unAvionSlot[a2,p2,2]
+                                   0                          -0 
+   180 unAvionSlot[a2,p2,3]
+                                   0                           1 
+   181 unAvionSlot[a2,p2,4]
+                                   0                           1 
+   182 unAvionSlot[a2,p2,5]
+                                   0                          -0 
+   183 unAvionSlot[a2,p2,6]
+                                   0                          -0 
+   184 unAvionSlot[a2,p3,1]
+                                   0                           1 
+   185 unAvionSlot[a2,p3,2]
+                                   0                           1 
+   186 unAvionSlot[a2,p3,3]
+                                   0                           1 
+   187 unAvionSlot[a2,p3,4]
+                                   0                          -0 
+   188 unAvionSlot[a2,p3,5]
+                                   0                          -0 
+   189 unAvionSlot[a2,p3,6]
+                                   0                           1 
+   190 unAvionSlot[a2,p4,1]
+                                   1                           1 
+   191 unAvionSlot[a2,p4,2]
+                                   0                          -0 
+   192 unAvionSlot[a2,p4,3]
+                                   0                          -0 
+   193 unAvionSlot[a2,p4,4]
+                                   0                          -0 
+   194 unAvionSlot[a2,p4,5]
+                                   0                           1 
+   195 unAvionSlot[a2,p4,6]
+                                   0                           1 
+   196 unAvionSlot[a3,p1,1]
+                                   0                          -0 
+   197 unAvionSlot[a3,p1,2]
+                                   0                          -0 
+   198 unAvionSlot[a3,p1,3]
+                                   0                          -0 
+   199 unAvionSlot[a3,p1,4]
+                                   0                          -0 
+   200 unAvionSlot[a3,p1,5]
+                                   0                           1 
+   201 unAvionSlot[a3,p1,6]
+                                   0                           1 
+   202 unAvionSlot[a3,p2,1]
+                                   0                          -0 
+   203 unAvionSlot[a3,p2,2]
+                                   0                          -0 
+   204 unAvionSlot[a3,p2,3]
+                                   0                           1 
+   205 unAvionSlot[a3,p2,4]
+                                   1                           1 
+   206 unAvionSlot[a3,p2,5]
+                                   0                          -0 
+   207 unAvionSlot[a3,p2,6]
+                                   0                          -0 
+   208 unAvionSlot[a3,p3,1]
+                                   0                           1 
+   209 unAvionSlot[a3,p3,2]
+                                   0                           1 
+   210 unAvionSlot[a3,p3,3]
+                                   0                           1 
+   211 unAvionSlot[a3,p3,4]
+                                   0                          -0 
+   212 unAvionSlot[a3,p3,5]
+                                   0                          -0 
+   213 unAvionSlot[a3,p3,6]
+                                   0                           1 
+   214 unAvionSlot[a3,p4,1]
+                                   0                           1 
+   215 unAvionSlot[a3,p4,2]
+                                   0                          -0 
+   216 unAvionSlot[a3,p4,3]
+                                   0                          -0 
+   217 unAvionSlot[a3,p4,4]
+                                   0                          -0 
+   218 unAvionSlot[a3,p4,5]
+                                   0                           1 
+   219 unAvionSlot[a3,p4,6]
+                                   0                           1 
+   220 unAvionSlot[a4,p1,1]
+                                   0                          -0 
+   221 unAvionSlot[a4,p1,2]
+                                   0                          -0 
+   222 unAvionSlot[a4,p1,3]
+                                   0                          -0 
+   223 unAvionSlot[a4,p1,4]
+                                   0                          -0 
+   224 unAvionSlot[a4,p1,5]
+                                   1                           1 
+   225 unAvionSlot[a4,p1,6]
+                                   0                           1 
+   226 unAvionSlot[a4,p2,1]
+                                   0                          -0 
+   227 unAvionSlot[a4,p2,2]
+                                   0                          -0 
+   228 unAvionSlot[a4,p2,3]
+                                   0                           1 
+   229 unAvionSlot[a4,p2,4]
+                                   0                           1 
+   230 unAvionSlot[a4,p2,5]
+                                   0                          -0 
+   231 unAvionSlot[a4,p2,6]
+                                   0                          -0 
+   232 unAvionSlot[a4,p3,1]
+                                   0                           1 
+   233 unAvionSlot[a4,p3,2]
+                                   0                           1 
+   234 unAvionSlot[a4,p3,3]
+                                   0                           1 
+   235 unAvionSlot[a4,p3,4]
+                                   0                          -0 
+   236 unAvionSlot[a4,p3,5]
+                                   0                          -0 
+   237 unAvionSlot[a4,p3,6]
+                                   0                           1 
+   238 unAvionSlot[a4,p4,1]
+                                   0                           1 
+   239 unAvionSlot[a4,p4,2]
+                                   0                          -0 
+   240 unAvionSlot[a4,p4,3]
+                                   0                          -0 
+   241 unAvionSlot[a4,p4,4]
+                                   0                          -0 
+   242 unAvionSlot[a4,p4,5]
+                                   0                           1 
+   243 unAvionSlot[a4,p4,6]
+                                   0                           1 
+   244 unAvionSlot[a5,p1,1]
+                                   0                          -0 
+   245 unAvionSlot[a5,p1,2]
+                                   0                          -0 
+   246 unAvionSlot[a5,p1,3]
+                                   0                          -0 
+   247 unAvionSlot[a5,p1,4]
+                                   0                          -0 
+   248 unAvionSlot[a5,p1,5]
+                                   0                           1 
+   249 unAvionSlot[a5,p1,6]
+                                   0                           1 
+   250 unAvionSlot[a5,p2,1]
+                                   0                          -0 
+   251 unAvionSlot[a5,p2,2]
+                                   0                          -0 
+   252 unAvionSlot[a5,p2,3]
+                                   0                           1 
+   253 unAvionSlot[a5,p2,4]
+                                   0                           1 
+   254 unAvionSlot[a5,p2,5]
+                                   0                          -0 
+   255 unAvionSlot[a5,p2,6]
+                                   0                          -0 
+   256 unAvionSlot[a5,p3,1]
+                                   0                           1 
+   257 unAvionSlot[a5,p3,2]
+                                   0                           1 
+   258 unAvionSlot[a5,p3,3]
+                                   0                           1 
+   259 unAvionSlot[a5,p3,4]
+                                   0                          -0 
+   260 unAvionSlot[a5,p3,5]
+                                   0                          -0 
+   261 unAvionSlot[a5,p3,6]
+                                   0                           1 
+   262 unAvionSlot[a5,p4,1]
+                                   0                           1 
+   263 unAvionSlot[a5,p4,2]
+                                   0                          -0 
+   264 unAvionSlot[a5,p4,3]
+                                   0                          -0 
+   265 unAvionSlot[a5,p4,4]
+                                   0                          -0 
+   266 unAvionSlot[a5,p4,5]
+                                   0                           1 
+   267 unAvionSlot[a5,p4,6]
+                                   1                           1 
+   268 limiteHorario[a1,p1,1]
+                                   0                          75 
+   269 limiteHorario[a1,p1,2]
+                                   0                          75 
+   270 limiteHorario[a1,p1,3]
+                                   0                          75 
+   271 limiteHorario[a1,p1,4]
+                                   0                          75 
+   272 limiteHorario[a1,p1,5]
+                                   0                          75 
+   273 limiteHorario[a1,p1,6]
+                                   0                          75 
+   274 limiteHorario[a1,p2,1]
+                                   0                          75 
+   275 limiteHorario[a1,p2,2]
+                                   0                          75 
+   276 limiteHorario[a1,p2,3]
+                                   0                          75 
+   277 limiteHorario[a1,p2,4]
+                                   0                          75 
+   278 limiteHorario[a1,p2,5]
+                                   0                          75 
+   279 limiteHorario[a1,p2,6]
+                                   0                          75 
+   280 limiteHorario[a1,p3,1]
+                                   0                          75 
+   281 limiteHorario[a1,p3,2]
+                                  15                          75 
+   282 limiteHorario[a1,p3,3]
+                                   0                          75 
+   283 limiteHorario[a1,p3,4]
+                                   0                          75 
+   284 limiteHorario[a1,p3,5]
+                                   0                          75 
+   285 limiteHorario[a1,p3,6]
+                                   0                          75 
+   286 limiteHorario[a1,p4,1]
+                                   0                          75 
+   287 limiteHorario[a1,p4,2]
+                                   0                          75 
+   288 limiteHorario[a1,p4,3]
+                                   0                          75 
+   289 limiteHorario[a1,p4,4]
+                                   0                          75 
+   290 limiteHorario[a1,p4,5]
+                                   0                          75 
+   291 limiteHorario[a1,p4,6]
+                                   0                          75 
+   292 limiteHorario[a2,p1,1]
+                                   0                          30 
+   293 limiteHorario[a2,p1,2]
+                                   0                          30 
+   294 limiteHorario[a2,p1,3]
+                                   0                          30 
+   295 limiteHorario[a2,p1,4]
+                                   0                          30 
+   296 limiteHorario[a2,p1,5]
+                                   0                          30 
+   297 limiteHorario[a2,p1,6]
+                                   0                          30 
+   298 limiteHorario[a2,p2,1]
+                                   0                          30 
+   299 limiteHorario[a2,p2,2]
+                                   0                          30 
+   300 limiteHorario[a2,p2,3]
+                                   0                          30 
+   301 limiteHorario[a2,p2,4]
+                                   0                          30 
+   302 limiteHorario[a2,p2,5]
+                                   0                          30 
+   303 limiteHorario[a2,p2,6]
+                                   0                          30 
+   304 limiteHorario[a2,p3,1]
+                                   0                          30 
+   305 limiteHorario[a2,p3,2]
+                                   0                          30 
+   306 limiteHorario[a2,p3,3]
+                                   0                          30 
+   307 limiteHorario[a2,p3,4]
+                                   0                          30 
+   308 limiteHorario[a2,p3,5]
+                                   0                          30 
+   309 limiteHorario[a2,p3,6]
+                                   0                          30 
+   310 limiteHorario[a2,p4,1]
+                                   0                          30 
+   311 limiteHorario[a2,p4,2]
+                                   0                          30 
+   312 limiteHorario[a2,p4,3]
+                                   0                          30 
+   313 limiteHorario[a2,p4,4]
+                                   0                          30 
+   314 limiteHorario[a2,p4,5]
+                                   0                          30 
+   315 limiteHorario[a2,p4,6]
+                                   0                          30 
+   316 limiteHorario[a3,p1,1]
+                                   0                          60 
+   317 limiteHorario[a3,p1,2]
+                                   0                          60 
+   318 limiteHorario[a3,p1,3]
+                                   0                          60 
+   319 limiteHorario[a3,p1,4]
+                                   0                          60 
+   320 limiteHorario[a3,p1,5]
+                                   0                          60 
+   321 limiteHorario[a3,p1,6]
+                                   0                          60 
+   322 limiteHorario[a3,p2,1]
+                                   0                          60 
+   323 limiteHorario[a3,p2,2]
+                                   0                          60 
+   324 limiteHorario[a3,p2,3]
+                                   0                          60 
+   325 limiteHorario[a3,p2,4]
+                                  45                          60 
+   326 limiteHorario[a3,p2,5]
+                                   0                          60 
+   327 limiteHorario[a3,p2,6]
+                                   0                          60 
+   328 limiteHorario[a3,p3,1]
+                                   0                          60 
+   329 limiteHorario[a3,p3,2]
+                                   0                          60 
+   330 limiteHorario[a3,p3,3]
+                                   0                          60 
+   331 limiteHorario[a3,p3,4]
+                                   0                          60 
+   332 limiteHorario[a3,p3,5]
+                                   0                          60 
+   333 limiteHorario[a3,p3,6]
+                                   0                          60 
+   334 limiteHorario[a3,p4,1]
+                                   0                          60 
+   335 limiteHorario[a3,p4,2]
+                                   0                          60 
+   336 limiteHorario[a3,p4,3]
+                                   0                          60 
+   337 limiteHorario[a3,p4,4]
+                                   0                          60 
+   338 limiteHorario[a3,p4,5]
+                                   0                          60 
+   339 limiteHorario[a3,p4,6]
+                                   0                          60 
+   340 limiteHorario[a4,p1,1]
+                                   0                          75 
+   341 limiteHorario[a4,p1,2]
+                                   0                          75 
+   342 limiteHorario[a4,p1,3]
+                                   0                          75 
+   343 limiteHorario[a4,p1,4]
+                                   0                          75 
+   344 limiteHorario[a4,p1,5]
+                                  60                          75 
+   345 limiteHorario[a4,p1,6]
+                                   0                          75 
+   346 limiteHorario[a4,p2,1]
+                                   0                          75 
+   347 limiteHorario[a4,p2,2]
+                                   0                          75 
+   348 limiteHorario[a4,p2,3]
+                                   0                          75 
+   349 limiteHorario[a4,p2,4]
+                                   0                          75 
+   350 limiteHorario[a4,p2,5]
+                                   0                          75 
+   351 limiteHorario[a4,p2,6]
+                                   0                          75 
+   352 limiteHorario[a4,p3,1]
+                                   0                          75 
+   353 limiteHorario[a4,p3,2]
+                                   0                          75 
+   354 limiteHorario[a4,p3,3]
+                                   0                          75 
+   355 limiteHorario[a4,p3,4]
+                                   0                          75 
+   356 limiteHorario[a4,p3,5]
+                                   0                          75 
+   357 limiteHorario[a4,p3,6]
+                                   0                          75 
+   358 limiteHorario[a4,p4,1]
+                                   0                          75 
+   359 limiteHorario[a4,p4,2]
+                                   0                          75 
+   360 limiteHorario[a4,p4,3]
+                                   0                          75 
+   361 limiteHorario[a4,p4,4]
+                                   0                          75 
+   362 limiteHorario[a4,p4,5]
+                                   0                          75 
+   363 limiteHorario[a4,p4,6]
+                                   0                          75 
+   364 limiteHorario[a5,p1,1]
+                                   0                          90 
+   365 limiteHorario[a5,p1,2]
+                                   0                          90 
+   366 limiteHorario[a5,p1,3]
+                                   0                          90 
+   367 limiteHorario[a5,p1,4]
+                                   0                          90 
+   368 limiteHorario[a5,p1,5]
+                                   0                          90 
+   369 limiteHorario[a5,p1,6]
+                                   0                          90 
+   370 limiteHorario[a5,p2,1]
+                                   0                          90 
+   371 limiteHorario[a5,p2,2]
+                                   0                          90 
+   372 limiteHorario[a5,p2,3]
+                                   0                          90 
+   373 limiteHorario[a5,p2,4]
+                                   0                          90 
+   374 limiteHorario[a5,p2,5]
+                                   0                          90 
+   375 limiteHorario[a5,p2,6]
+                                   0                          90 
+   376 limiteHorario[a5,p3,1]
+                                   0                          90 
+   377 limiteHorario[a5,p3,2]
+                                   0                          90 
+   378 limiteHorario[a5,p3,3]
+                                   0                          90 
+   379 limiteHorario[a5,p3,4]
+                                   0                          90 
+   380 limiteHorario[a5,p3,5]
+                                   0                          90 
+   381 limiteHorario[a5,p3,6]
+                                   0                          90 
+   382 limiteHorario[a5,p4,1]
+                                   0                          90 
+   383 limiteHorario[a5,p4,2]
+                                   0                          90 
+   384 limiteHorario[a5,p4,3]
+                                   0                          90 
+   385 limiteHorario[a5,p4,4]
+                                   0                          90 
+   386 limiteHorario[a5,p4,5]
+                                   0                          90 
+   387 limiteHorario[a5,p4,6]
+                                  75                          90 
+   388 slotsContiguos[p1,2]
+                                   0                           1 
+   389 slotsContiguos[p1,3]
+                                   0                           1 
+   390 slotsContiguos[p1,4]
+                                   0                           1 
+   391 slotsContiguos[p1,5]
+                                   1                           1 
+   392 slotsContiguos[p1,6]
+                                   1                           1 
+   393 slotsContiguos[p2,2]
+                                   0                           1 
+   394 slotsContiguos[p2,3]
+                                   0                           1 
+   395 slotsContiguos[p2,4]
+                                   1                           1 
+   396 slotsContiguos[p2,5]
+                                   1                           1 
+   397 slotsContiguos[p2,6]
+                                   0                           1 
+   398 slotsContiguos[p3,2]
+                                   1                           1 
+   399 slotsContiguos[p3,3]
+                                   1                           1 
+   400 slotsContiguos[p3,4]
+                                   0                           1 
+   401 slotsContiguos[p3,5]
+                                   0                           1 
+   402 slotsContiguos[p3,6]
+                                   0                           1 
+   403 slotsContiguos[p4,2]
+                                   1                           1 
+   404 slotsContiguos[p4,3]
+                                   0                           1 
+   405 slotsContiguos[p4,4]
+                                   0                           1 
+   406 slotsContiguos[p4,5]
+                                   0                           1 
+   407 slotsContiguos[p4,6]
+                                   1                           1 
+
+   No. Column name       Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 units[estandar,a1]
+                    *             19             0               
+     2 units[leisure_plus,a1]
+                    *             58             0               
+     3 units[business_plus,a1]
+                    *             13             0               
+     4 units[estandar,a2]
+                    *             38             0               
+     5 units[leisure_plus,a2]
+                    *             31             0               
+     6 units[business_plus,a2]
+                    *             51             0               
+     7 units[estandar,a3]
+                    *            160             0               
+     8 units[leisure_plus,a3]
+                    *             23             0               
+     9 units[business_plus,a3]
+                    *             17             0               
+    10 units[estandar,a4]
+                    *            100             0               
+    11 units[leisure_plus,a4]
+                    *             20             0               
+    12 units[business_plus,a4]
+                    *             30             0               
+    13 units[estandar,a5]
+                    *            133             0               
+    14 units[leisure_plus,a5]
+                    *             21             0               
+    15 units[business_plus,a5]
+                    *             36             0               
+    16 asignacionSlot[a1,p1,1]
+                    *              0             0             1 
+    17 asignacionSlot[a1,p1,2]
+                    *              0             0             1 
+    18 asignacionSlot[a1,p1,3]
+                    *              0             0             1 
+    19 asignacionSlot[a1,p1,4]
+                    *              0             0             1 
+    20 asignacionSlot[a1,p1,5]
+                    *              0             0             1 
+    21 asignacionSlot[a1,p1,6]
+                    *              0             0             1 
+    22 asignacionSlot[a1,p2,1]
+                    *              0             0             1 
+    23 asignacionSlot[a1,p2,2]
+                    *              0             0             1 
+    24 asignacionSlot[a1,p2,3]
+                    *              0             0             1 
+    25 asignacionSlot[a1,p2,4]
+                    *              0             0             1 
+    26 asignacionSlot[a1,p2,5]
+                    *              0             0             1 
+    27 asignacionSlot[a1,p2,6]
+                    *              0             0             1 
+    28 asignacionSlot[a1,p3,1]
+                    *              0             0             1 
+    29 asignacionSlot[a1,p3,2]
+                    *              1             0             1 
+    30 asignacionSlot[a1,p3,3]
+                    *              0             0             1 
+    31 asignacionSlot[a1,p3,4]
+                    *              0             0             1 
+    32 asignacionSlot[a1,p3,5]
+                    *              0             0             1 
+    33 asignacionSlot[a1,p3,6]
+                    *              0             0             1 
+    34 asignacionSlot[a1,p4,1]
+                    *              0             0             1 
+    35 asignacionSlot[a1,p4,2]
+                    *              0             0             1 
+    36 asignacionSlot[a1,p4,3]
+                    *              0             0             1 
+    37 asignacionSlot[a1,p4,4]
+                    *              0             0             1 
+    38 asignacionSlot[a1,p4,5]
+                    *              0             0             1 
+    39 asignacionSlot[a1,p4,6]
+                    *              0             0             1 
+    40 asignacionSlot[a2,p1,1]
+                    *              0             0             1 
+    41 asignacionSlot[a2,p1,2]
+                    *              0             0             1 
+    42 asignacionSlot[a2,p1,3]
+                    *              0             0             1 
+    43 asignacionSlot[a2,p1,4]
+                    *              0             0             1 
+    44 asignacionSlot[a2,p1,5]
+                    *              0             0             1 
+    45 asignacionSlot[a2,p1,6]
+                    *              0             0             1 
+    46 asignacionSlot[a2,p2,1]
+                    *              0             0             1 
+    47 asignacionSlot[a2,p2,2]
+                    *              0             0             1 
+    48 asignacionSlot[a2,p2,3]
+                    *              0             0             1 
+    49 asignacionSlot[a2,p2,4]
+                    *              0             0             1 
+    50 asignacionSlot[a2,p2,5]
+                    *              0             0             1 
+    51 asignacionSlot[a2,p2,6]
+                    *              0             0             1 
+    52 asignacionSlot[a2,p3,1]
+                    *              0             0             1 
+    53 asignacionSlot[a2,p3,2]
+                    *              0             0             1 
+    54 asignacionSlot[a2,p3,3]
+                    *              0             0             1 
+    55 asignacionSlot[a2,p3,4]
+                    *              0             0             1 
+    56 asignacionSlot[a2,p3,5]
+                    *              0             0             1 
+    57 asignacionSlot[a2,p3,6]
+                    *              0             0             1 
+    58 asignacionSlot[a2,p4,1]
+                    *              1             0             1 
+    59 asignacionSlot[a2,p4,2]
+                    *              0             0             1 
+    60 asignacionSlot[a2,p4,3]
+                    *              0             0             1 
+    61 asignacionSlot[a2,p4,4]
+                    *              0             0             1 
+    62 asignacionSlot[a2,p4,5]
+                    *              0             0             1 
+    63 asignacionSlot[a2,p4,6]
+                    *              0             0             1 
+    64 asignacionSlot[a3,p1,1]
+                    *              0             0             1 
+    65 asignacionSlot[a3,p1,2]
+                    *              0             0             1 
+    66 asignacionSlot[a3,p1,3]
+                    *              0             0             1 
+    67 asignacionSlot[a3,p1,4]
+                    *              0             0             1 
+    68 asignacionSlot[a3,p1,5]
+                    *              0             0             1 
+    69 asignacionSlot[a3,p1,6]
+                    *              0             0             1 
+    70 asignacionSlot[a3,p2,1]
+                    *              0             0             1 
+    71 asignacionSlot[a3,p2,2]
+                    *              0             0             1 
+    72 asignacionSlot[a3,p2,3]
+                    *              0             0             1 
+    73 asignacionSlot[a3,p2,4]
+                    *              1             0             1 
+    74 asignacionSlot[a3,p2,5]
+                    *              0             0             1 
+    75 asignacionSlot[a3,p2,6]
+                    *              0             0             1 
+    76 asignacionSlot[a3,p3,1]
+                    *              0             0             1 
+    77 asignacionSlot[a3,p3,2]
+                    *              0             0             1 
+    78 asignacionSlot[a3,p3,3]
+                    *              0             0             1 
+    79 asignacionSlot[a3,p3,4]
+                    *              0             0             1 
+    80 asignacionSlot[a3,p3,5]
+                    *              0             0             1 
+    81 asignacionSlot[a3,p3,6]
+                    *              0             0             1 
+    82 asignacionSlot[a3,p4,1]
+                    *              0             0             1 
+    83 asignacionSlot[a3,p4,2]
+                    *              0             0             1 
+    84 asignacionSlot[a3,p4,3]
+                    *              0             0             1 
+    85 asignacionSlot[a3,p4,4]
+                    *              0             0             1 
+    86 asignacionSlot[a3,p4,5]
+                    *              0             0             1 
+    87 asignacionSlot[a3,p4,6]
+                    *              0             0             1 
+    88 asignacionSlot[a4,p1,1]
+                    *              0             0             1 
+    89 asignacionSlot[a4,p1,2]
+                    *              0             0             1 
+    90 asignacionSlot[a4,p1,3]
+                    *              0             0             1 
+    91 asignacionSlot[a4,p1,4]
+                    *              0             0             1 
+    92 asignacionSlot[a4,p1,5]
+                    *              1             0             1 
+    93 asignacionSlot[a4,p1,6]
+                    *              0             0             1 
+    94 asignacionSlot[a4,p2,1]
+                    *              0             0             1 
+    95 asignacionSlot[a4,p2,2]
+                    *              0             0             1 
+    96 asignacionSlot[a4,p2,3]
+                    *              0             0             1 
+    97 asignacionSlot[a4,p2,4]
+                    *              0             0             1 
+    98 asignacionSlot[a4,p2,5]
+                    *              0             0             1 
+    99 asignacionSlot[a4,p2,6]
+                    *              0             0             1 
+   100 asignacionSlot[a4,p3,1]
+                    *              0             0             1 
+   101 asignacionSlot[a4,p3,2]
+                    *              0             0             1 
+   102 asignacionSlot[a4,p3,3]
+                    *              0             0             1 
+   103 asignacionSlot[a4,p3,4]
+                    *              0             0             1 
+   104 asignacionSlot[a4,p3,5]
+                    *              0             0             1 
+   105 asignacionSlot[a4,p3,6]
+                    *              0             0             1 
+   106 asignacionSlot[a4,p4,1]
+                    *              0             0             1 
+   107 asignacionSlot[a4,p4,2]
+                    *              0             0             1 
+   108 asignacionSlot[a4,p4,3]
+                    *              0             0             1 
+   109 asignacionSlot[a4,p4,4]
+                    *              0             0             1 
+   110 asignacionSlot[a4,p4,5]
+                    *              0             0             1 
+   111 asignacionSlot[a4,p4,6]
+                    *              0             0             1 
+   112 asignacionSlot[a5,p1,1]
+                    *              0             0             1 
+   113 asignacionSlot[a5,p1,2]
+                    *              0             0             1 
+   114 asignacionSlot[a5,p1,3]
+                    *              0             0             1 
+   115 asignacionSlot[a5,p1,4]
+                    *              0             0             1 
+   116 asignacionSlot[a5,p1,5]
+                    *              0             0             1 
+   117 asignacionSlot[a5,p1,6]
+                    *              0             0             1 
+   118 asignacionSlot[a5,p2,1]
+                    *              0             0             1 
+   119 asignacionSlot[a5,p2,2]
+                    *              0             0             1 
+   120 asignacionSlot[a5,p2,3]
+                    *              0             0             1 
+   121 asignacionSlot[a5,p2,4]
+                    *              0             0             1 
+   122 asignacionSlot[a5,p2,5]
+                    *              0             0             1 
+   123 asignacionSlot[a5,p2,6]
+                    *              0             0             1 
+   124 asignacionSlot[a5,p3,1]
+                    *              0             0             1 
+   125 asignacionSlot[a5,p3,2]
+                    *              0             0             1 
+   126 asignacionSlot[a5,p3,3]
+                    *              0             0             1 
+   127 asignacionSlot[a5,p3,4]
+                    *              0             0             1 
+   128 asignacionSlot[a5,p3,5]
+                    *              0             0             1 
+   129 asignacionSlot[a5,p3,6]
+                    *              0             0             1 
+   130 asignacionSlot[a5,p4,1]
+                    *              0             0             1 
+   131 asignacionSlot[a5,p4,2]
+                    *              0             0             1 
+   132 asignacionSlot[a5,p4,3]
+                    *              0             0             1 
+   133 asignacionSlot[a5,p4,4]
+                    *              0             0             1 
+   134 asignacionSlot[a5,p4,5]
+                    *              0             0             1 
+   135 asignacionSlot[a5,p4,6]
+                    *              1             0             1 
+
+Integer feasibility conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output

@@ -30,12 +30,11 @@ param costesSlot {i in AVIONES, j in SLOTS} :=  costeMinuto[i]*(inicioSlot[j]-ho
 
 /* Variables de decision, Unidades de asientos y asignacion de slots de tiempo a aviones en cada pista */
 var units {i in BILLETES,j in AVIONES} integer, >=  0;
-var asignacionSlot {k in AVIONES, i in PISTAS, j in SLOTS} binary;
+var asignacionSlot {k in AVIONES, i in PISTAS, j in SLOTS} binary, >= 0;
 
 
 /* Funcion objetivo: Maximizar los beneficios netos de la compañia sacando el opmimo numero de billetes a vender de cada tipo menos la configuracion de asignacion de slots que tenga menos gastos */
-maximize beneficioNeto : (sum{i in BILLETES,j in AVIONES} units[i,j]*precio_billetes[i]) - ( sum{k in AVIONES, i in PISTAS, j in SLOTS} asignacionSlot[k,i,j]*costesSlot[k,j]);
-
+maximize beneficioNeto : sum{i in AVIONES} ( sum{j in BILLETES}(units[j,i] * precio_billetes[j]) - sum{k in PISTAS, l in SLOTS} (asignacionSlot[i,k,l] * costesSlot[i,l]) );
 
 /******** Restricciones ********/
 

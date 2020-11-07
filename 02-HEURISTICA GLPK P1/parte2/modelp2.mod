@@ -16,7 +16,7 @@ param slotsDisponibles {i in PISTAS, j in SLOTS};
 param costesSlot {i in AVIONES, j in SLOTS} :=  costeMinuto[i]*(inicioSlot[j]-horaEsperada[i]);
 
 /*Variable de decision binaria, saber si a un avion se le asgina un slot */
-var asignacionSlot {k in AVIONES, i in PISTAS, j in SLOTS} binary;
+var asignacionSlot {k in AVIONES, i in PISTAS, j in SLOTS} binary, >= 0;
 
 /* Funcion objetivo: Minimizar los gastos de la compañia con la asignacion correcta de slots a los aviones -> pagar el minimo de coste */
 minimize Gastos : sum{k in AVIONES, i in PISTAS, j in SLOTS} asignacionSlot[k,i,j]*costesSlot[k,j];
