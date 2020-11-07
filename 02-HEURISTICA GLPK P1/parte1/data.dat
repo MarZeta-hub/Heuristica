@@ -1,12 +1,18 @@
 data;
-/*Data section problema 1 */
+/* Seccion de datos de la parte 1 */
 
+/* Se pueden modificar los valores del .dat sin necesidad de modificar el .mod */
+
+
+/* Definicion de los conjuntos de datos */
 set BILLETES := estandar leisure_plus business_plus;
 set AVIONES := a1 a2 a3 a4 a5;
 set BILLETES_MIN := leisure_plus business_plus;
 
 
+/* Parametros a utilizar */
 
+/* Numero de asientos disponibles por cada avion (Unidad) */
 param asientos:= 
 a1	90
 a2	120
@@ -14,7 +20,7 @@ a3	200
 a4	150
 a5	190;
 
-
+/* Numero maximo de carga permitida por cada avion (Kg) */
 param carga_aviones:=
 a1	1700
 a2	2700
@@ -22,29 +28,24 @@ a3	1300
 a4	1700
 a5	2000;
 
-/*
-param avi: a1 a2 a3 a4 a5 :=
-asientos 90 120 200 150 190
-carga_aviones 1700 2700 1300 1700 2000;
-*/
-
-	
+/* Precio de cada uno de los tipos de billetes (Euros) */
 param precio_billetes:=
 estandar	19
 leisure_plus	49
 business_plus	69;
 
-	
+/* Numero maximo de carga permitida de equipaje por cada tipo de billete (Kg) */
 param carga_billetes:=
 estandar	1
 leisure_plus	20
 business_plus	40;
 
+/* Numero minimo de billetes que deben venderse de cada categoria (Unidades) */
 param min_billetes:=
 leisure_plus	20
 business_plus	10;
 
+/* Porcentaje minimo de billetes estandar que debe vender la aerolinea (Porcentaje/100) */
 param porcentaje_estandar:=	0.6;
-
 
 end;

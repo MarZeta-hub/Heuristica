@@ -1,23 +1,23 @@
 data;
-/* Data section parte 2 modelado avanzado*/
+/* Seccion de datos de la parte 2 modelado avanzado */
 
-/* Sets a utilizar */
+/* Se pueden modificar los valores del .dat sin necesidad de modificar el .mod */
+
+/* Conjuntos a utilizar */
 set AVIONES := a1 a2 a3 a4 a5;
 set PISTAS := p1 p2 p3 p4;
-set SLOTS := s1 s2 s3 s4 s5 s6;
+set SLOTS := 1 2 3 4 5 6;
 
-#set SUBSLOTS := s1 s2 s3 s4 s5;
-
-/* Este vector indica el inicio de cada slot se pasa de formato de tiempo a un formato decimal por minutos */
+/* Este vector indica el inicio de cada slot se pasa de formato de tiempo a un formato decimal por minutos (Numero del slot) */
 param inicioSlot := 
-s1  0
-s2  15
-s3  30
-s4  45
-s5  60
-s6  75;
+1  0
+2  15
+3  30
+4  45
+5  60
+6  75;
 
-/* Vector con las horas esperadas de cada uno de los aviones en formato decimal */
+/* Vector con las horas esperadas de cada uno de los aviones en formato decimal (Horas en decimal de llegada) */
 param horaEsperada :=
 a1  10
 a2  -5
@@ -25,7 +25,7 @@ a3  40
 a4  55
 a5  70;
 
-/* Vector con las horas limite a las que no debe superar cada avion */
+/* Vector con las horas limite a las que no debe superar cada avion (Horas en decimal de limite) */
 param horaLimite :=
 a1  75
 a2  30
@@ -33,7 +33,7 @@ a3  60
 a4  75
 a5  90;
 
-/* Costes por minuto de cada avion */
+/* Costes por minuto de cada avion (Euros) */
 param costeMinuto :=
 a1  100
 a2  200
@@ -41,14 +41,11 @@ a3  150
 a4  250
 a5  200;
 
-/* Matriz de slots disponibles en el inicio por pista, i->pista  j-> slot */
-param slotsDisponibles: s1 s2 s3 s4 s5 s6 :=
+/* Matriz de slots disponibles en el inicio por pista, i->pista  j-> slot (1 OCUPADO, 0 DISPONIBLE) */
+param slotsDisponibles: 1 2 3 4 5 6 :=
 p1  1 1 1 1 0 0
 p2  1 1 0 0 1 1
 p3  0 0 0 1 1 0
 p4  0 1 1 1 0 0;
 
-
 end;
-
-
