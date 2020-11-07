@@ -3,7 +3,6 @@ data;
 
 /* Se pueden modificar los valores del .dat sin necesidad de modificar el .mod */
 
-
 /* Definicion de los conjuntos de datos */
 set BILLETES := estandar leisure_plus business_plus;
 set AVIONES := a1 a2 a3 a4 a5;

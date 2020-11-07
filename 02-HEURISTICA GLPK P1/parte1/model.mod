@@ -31,17 +31,9 @@ s.t. min_leisure { j in AVIONES}: units['leisure_plus',j] >= min_billetes['leisu
 s.t. min_business {j in AVIONES}: units['business_plus',j] >= min_billetes['business_plus'];
 
 /* Numero maximo de asientos por avion */
-s.t. max_asientosa1 : sum{ i in BILLETES} units[i,'a1'] <= asientos['a1'];
-s.t. max_asientosa2 : sum{ i in BILLETES} units[i,'a2'] <= asientos['a2'];
-s.t. max_asientosa3 : sum{ i in BILLETES} units[i,'a3'] <= asientos['a3'];
-s.t. max_asientosa4 : sum{ i in BILLETES} units[i,'a4'] <= asientos['a4'];
-s.t. max_asientosa5 : sum{ i in BILLETES} units[i,'a5'] <= asientos['a5'];
+s.t. max_asientos {j in AVIONES} : sum{ i in BILLETES} units[i,j] <= asientos[j];
 
 /* Numero maximo de carga por avion */
-s.t. max_cargaa1 : sum{i in BILLETES} units[i,'a1']*carga_billetes[i]<= carga_aviones['a1'];
-s.t. max_cargaa2 : sum{i in BILLETES} units[i,'a2']*carga_billetes[i]<= carga_aviones['a2'];
-s.t. max_cargaa3 : sum{i in BILLETES} units[i,'a3']*carga_billetes[i]<= carga_aviones['a3'];
-s.t. max_cargaa4 : sum{i in BILLETES} units[i,'a4']*carga_billetes[i]<= carga_aviones['a4'];
-s.t. max_cargaa5 : sum{i in BILLETES} units[i,'a5']*carga_billetes[i]<= carga_aviones['a5'];
+s.t. max_carga {j in AVIONES} : sum{i in BILLETES} units[i,j]*carga_billetes[i]<= carga_aviones[j];
 
 end;
