@@ -8,6 +8,8 @@ set BILLETES := estandar leisure_plus business_plus;
 set AVIONES := a1 a2 a3 a4 a5;
 set BILLETES_MIN := leisure_plus business_plus;
 
+set PISTAS := p1 p2 p3 p4;
+set SLOTS := 1 2 3 4 5 6;
 
 /* Parametros a utilizar */
 
@@ -47,4 +49,50 @@ business_plus	10;
 /* Porcentaje minimo de billetes estandar que debe vender la aerolinea (Porcentaje/100) */
 param porcentaje_estandar:=	0.6;
 
+
+
+/* Seccion de datos de la parte 2 modelado avanzado */
+
+/* Este vector indica el inicio de cada slot se pasa de formato de tiempo a un formato decimal por minutos (Numero del slot) */
+param inicioSlot := 
+1  0
+2  15
+3  30
+4  45
+5  60
+6  75;
+
+/* Vector con las horas esperadas de cada uno de los aviones en formato decimal (Horas en decimal de llegada) */
+param horaEsperada :=
+a1  10
+a2  -5
+a3  40
+a4  55
+a5  70;
+
+/* Vector con las horas limite a las que no debe superar cada avion (Horas en decimal de limite) */
+param horaLimite :=
+a1  75
+a2  30
+a3  60
+a4  75
+a5  90;
+
+/* Costes por minuto de cada avion (Euros) */
+param costeMinuto :=
+a1  100
+a2  200
+a3  150
+a4  250
+a5  200;
+
+/* Matriz de slots disponibles en el inicio por pista, i->pista  j-> slot (1 OCUPADO, 0 DISPONIBLE) */
+param slotsDisponibles: 1 2 3 4 5 6 :=
+p1  1 1 1 1 0 0
+p2  1 1 0 0 1 1
+p3  0 0 0 1 1 0
+p4  0 1 1 1 0 0;
+
 end;
+
+
