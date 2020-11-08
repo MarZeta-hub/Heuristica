@@ -37,7 +37,7 @@ business_plus	69;
 
 /* Numero maximo de carga permitida de equipaje por cada tipo de billete (Kg) */
 param carga_billetes:=
-estandar	1
+estandar	    1
 leisure_plus	20
 business_plus	40;
 
