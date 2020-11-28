@@ -6,51 +6,56 @@ problem = Problem()
 
 # Variables a introducir en el problema
 
-# En nuestro caso seran los satelites las variables y tambien las antenas de comunicacion en tierra
-
-
-"""
-# Asi se definirian variables con el mismo dominio
-variables = {'SAT1': 'the value of my first variable is',
-             'SAT2': 'and my second variable gets'}
-problem.addVariables (variables, range (10))
-"""
-
 # VARIABLES DE SATELITES
-# Cada variable asociada a su dominio de horas en este caso
-# TODO SE PUEDE HACER CON RANGE PERFECTAMENTE...
-problem.addVariable('SAT1', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]) 
-problem.addVariable('SAT2', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
-problem.addVariable('SAT3', [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
-problem.addVariable('SAT4', [16, 17, 18, 19, 20, 21, 22, 23, 0])
-problem.addVariable('SAT5', [6, 7, 8, 9, 10, 11, 12, 13])
-problem.addVariable('SAT6', [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19])
+
+problem.addVariable('SAT1', ['ANT1', 'ANT2', 'ANT3', 'ANT4']) 
+problem.addVariable('SAT2', ['ANT1', 'ANT2', 'ANT3'])
+problem.addVariable('SAT3.1', ['ANT4', 'ANT6'])
+problem.addVariable('SAT3.2', ['ANT7', 'ANT9', 'ANT10'])
+problem.addVariable('SAT4', ['ANT8', 'ANT11', 'ANT12'])
+problem.addVariable('SAT5', ['ANT1', 'ANT7', 'ANT12'])
+problem.addVariable('SAT6.1', ['ANT7', 'ANT9'])
+problem.addVariable('SAT6.2', ['ANT3', 'ANT4', 'ANT5'])
+
 
 # VARIABLES DE ANTENAS
-problem.addVariable('ANT1', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])
-problem.addVariable('ANT2', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
-problem.addVariable('ANT3', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19])
-problem.addVariable('ANT4', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19])
-problem.addVariable('ANT5', [13, 14, 15, 16, 17, 18, 19])
-problem.addVariable('ANT6', [6, 7, 8, 9, 10, 11, 12])
-problem.addVariable('ANT7', [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
-problem.addVariable('ANT8', [16, 17, 18, 19, 20, 21, 22, 23, 0])
-problem.addVariable('ANT9', [9, 10, 11, 12, 13, 14, 15, 16])
-problem.addVariable('ANT10', [13, 14, 15, 16])
-problem.addVariable('ANT11', [16, 17, 18, 19, 20, 21, 22, 23, 0])
-problem.addVariable('ANT12', [6, 7, 8, 9, 10, 11, 12, 13, 16, 17, 18, 19, 20, 21, 22, 23, 0])
+problem.addVariable('ANT1', ['f1','f5'])
+problem.addVariable('ANT2', ['f1'])
+problem.addVariable('ANT3', ['f1','f7'])
+problem.addVariable('ANT4', ['f1','f2','f7'])
+problem.addVariable('ANT5', ['f7'])
+problem.addVariable('ANT6', ['f2'])
+problem.addVariable('ANT7', ['f3','f5','f6'])
+problem.addVariable('ANT8', ['f4'])
+problem.addVariable('ANT9', ['f3','f6'])
+problem.addVariable('ANT10', ['f3'])
+problem.addVariable('ANT11', ['f4'])
+problem.addVariable('ANT12', ['f4','f5'])
 
 
+# Franjas que comienzan antes de las 12
+franjas_antes12 = ['f1','f2','f5','f6']
 
+# Franjas que comienzan despues de las 12
+franjas_despues12 = ['f3','f4','f7']
 
 
 # Restricciones
 # En las restricciones se crea una funcion para cada una de ellas 
 
+# Primera restriccion SAT1 y SAT2 deben tener la misma antena
+def mismaAntena12(sat1, sat2):
+    if(sat1==sat2):
+        return True
+    
+    return False
+
+problem.addConstraint(mismaAntena12, ('SAT1','SAT2'))
 
 
+# Segunda restriccion
 
 
 # Ejecucion del problema
 
-print(problem.getSolutions())
+print(problem.getSolutionS())
