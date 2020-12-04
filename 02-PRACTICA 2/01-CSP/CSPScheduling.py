@@ -5,7 +5,7 @@ import numpy as np
 
 problem = Problem()
 
-# VARIABLES DE SATELITES
+# VARIABLES DE SATELITES, cada satelite corresponde a una franja, los satelites 3 y 6 tienen dos franjas asignadas, por lo que se les toma como versiones una para cada una de sus franjas.
 satelites = ['SAT1','SAT2','SAT3.1','SAT3.2','SAT4','SAT5','SAT6.1','SAT6.2']
 
 problem.addVariable('SAT1', ['ANT1', 'ANT2', 'ANT3', 'ANT4']) 
