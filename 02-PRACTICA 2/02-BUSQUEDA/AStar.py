@@ -1,5 +1,5 @@
 # Clase AStar para la practica 2 parte 2
-import numpy as np
+
 from estado import estado
 
 import sys
@@ -41,7 +41,7 @@ print(objetos)
 # Lista donde se van a guardar las caracteristicas de los satelites
 satelites = []
 
-
+# Sacamos los satelites que existen del fichero con sus caracteristicas con el formato: [id, [Caracteristicas]]
 contador = 1
 for reader in f:
     sat = []
@@ -104,16 +104,15 @@ tiempoEjecucionAlgoritmo = finAlgoritmo - inicioAlgoritmo
 # Salida del fichero de estadisticas
 
 f = open("problema.prob.statistics", "w")
+
 time = "Tiempo total: %f \n"%tiempoEjecucionAlgoritmo
 totalcost = "Coste total: %i \n"%costeTotal
 longPlan = "Longitud del plan: %i \n"%LongitudPlan
 expandedNodes = "Nodos expandidos: %i \n"%nodosExpandidos
 
-
 f.write(time)
 f.write(totalcost)
 f.write(longPlan)
 f.write(expandedNodes)
-
 
 f.close()
