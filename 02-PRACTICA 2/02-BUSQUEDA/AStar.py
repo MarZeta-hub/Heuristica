@@ -18,7 +18,7 @@ inicio = inicio[:3]
 if(inicio != 'OBS'):
     raise Exception ('Error, formato fichero de entrada incorrecto')
     
-print(inicio)
+
 
 # Saltamos la cabecera de la primera linea de OBS y separamos por coordenadasS
 #f.seek(5)
