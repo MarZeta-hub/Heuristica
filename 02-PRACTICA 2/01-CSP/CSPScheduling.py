@@ -51,7 +51,7 @@ def restFranjas(sat32, sat5, sat61, sat4):
     if(sat61=='ANT7' and sat4=='ANT12'):
         return False
     return True
-    
+
 
 problem.addConstraint(restFranjas, ('SAT3.2','SAT5','SAT6.1','SAT4'))
 
