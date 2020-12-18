@@ -1,5 +1,8 @@
 # Clase estado para la practica 2 parte 2
 
+from satelite import satelite
+
+
 class estado():
 
     # Nodo del arbol padre (Para recorrerlo inversamente)
@@ -8,20 +11,14 @@ class estado():
     # Hora actual en la que se encuentra el estado
     horaActual = 0
 
-    # Energia disponible para cada satelite
-    energiaDisponible = []
-
-    # Bandas que esta utilizando actualmente cada satelite
-    bandasActuales = []
-
     # Puntos de observacion disponibles (su posicion y hora)
     observables = []
 
-    # Son las observaciones pendientes de ser transmitidas, despues de ser observadas
-    retransmisiones = []
+    # Datos del satelite 1
+    sat1 = satelite()
 
-    #Operacion realizada para conseguir este estado
-    operacion = None
+    # Datos del satelite 2
+    sat2 = satelite()
 
     # Valor de la funcion heuristica
     h = None
@@ -33,18 +30,16 @@ class estado():
     f = None
 
     # Funcion constructor
-    def __init__(self, nodoPadre ,horaActual, energiaDisponible, bandasActuales, observables, retransmisiones,coste):
+    def __init__(self, nodoPadre ,horaActual, observables,  sat1, sat2, coste):
         self.nodoPadre = nodoPadre
         self.horaActual = horaActual
-        self.energiaDisponible = energiaDisponible
-        self.bandasActuales = bandasActuales
         self.observables = observables
-        self.retransmisiones = retransmisiones
+        self.sat1 = sat1
+        self.sat2 = sat2
         if self.nodoPadre == None:
             self.g = coste
         else:
             self.g = coste + self.nodoPadre.getG()
-
 
 
     # A partir de aquí se implementan los getters y setters
@@ -60,36 +55,6 @@ class estado():
 
     def setHoraActual(self, horaActual):
         self.horaActual = horaActual
-
-    def getEnergiaDisponible(self):
-        self.energiaDisponible = self.energiaDisponible
-
-    def getEnergiaDisponible(self, energiaDisponibel):
-        self.energiaDisponible = energiaDisponibel
-
-    def getBandasActuales(self):
-        return self.bandasActuales
-
-    def setBandasActuales(self, bandasAcuales):
-        self.bandasActuales = bandasAcuales
-
-    def getObservables(self):
-        return self.observables
-
-    def setObservables(self, observables):
-        self.observables = observables
-
-    def getRetransmisiones(self):
-        return self.retransmisiones
-    
-    def setRetransmisiones(self, retransmisiones):
-        self.retransmisiones =retransmisiones
-
-    def getOperacion(self):
-        return self.operacion
-
-    def setOperacion(self, operacion):
-        self.operacion = operacion
 
     def getG(self):
         return self.g
@@ -112,3 +77,15 @@ class estado():
     
     def setF(self, f):
         self.f = f
+
+    def getObservables(self):
+        return self.observables
+
+    def setObservables(self, observables):
+        self.observables = observables
+
+    def getSat1(self):
+        return self.sat1
+
+    def getSat2(self):
+        return self.sat2
