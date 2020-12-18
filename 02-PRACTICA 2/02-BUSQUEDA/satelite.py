@@ -2,8 +2,8 @@
 
 class satelite():
 
-    # Capacidad de bateria
-    capacidadBateria = 0
+    
+    
 
     """ Coste de operacion
         0: idle
@@ -12,15 +12,23 @@ class satelite():
         3: girar
         4: recargar
     """
-    costeOperacion = []
+    # Es un coste de las operaciones que puede realizar el satelite [OBSERVACION, TRANSMISION, GIRO, UDSRECARGADAS]
+    
+    # Atributos de costes 
+    costeObservacion = 0
+    costeTransmision = 0
+    costeGiro = 0
+    udsRecarga = 0
+    capacidadBateria = 0
+
 
     # Energia disponible para cada satelite
     energiaDisponible = 0
 
-    # Bandas que esta utilizando actualmente cada satelite
+    # Bandas que esta utilizando actualmente cada satelite (X1,X2)
     bandasActuales = []
 
-    # Banda Origen
+    # Banda Origen de la que parte el satelite (X1,X2)
     bandaOrigen = []
 
     # Son las observaciones pendientes de ser transmitidas, despues de ser observadas
@@ -29,34 +37,44 @@ class satelite():
     # Operacion realizada para conseguir este estado
     operacion = None
 
-    def __init__(self, capacidadBateria, costeOperacion, energiaDisponible, bandasActuales, bandaOrigen, retransmisiones):
+    # Constructor de satelite
+    def __init__(self, costeObservacion, costeTransmision, costeGiro, udsRecarga, capacidadBateria, bandaOrigen, retransmisiones):
+        
+        self.costeObservacion = costeObservacion
+        self.costeTransmision = costeTransmision
+        self.costeGiro = costeGiro
+        self.udsRecarga = udsRecarga
         self.capacidadBateria = capacidadBateria
-        self.costeOperacion = costeOperacion
-        self.energiaDisponible = energiaDisponible
-        self.bandasActuales = bandasActuales
+        self.energiaDisponible = capacidadBateria
         self.bandaOrigen = bandaOrigen
+        self.bandasActuales = bandaOrigen
         self.retransmisiones = retransmisiones
 
-    def __init__(self):
-        super().__init__()
+    
+
+# Getters y setters necesarios
+
+    def getCosteObservacion(self):
+        return self.costeObservacion
+    
+    def getCosteTransmision(self):
+        return self.costeTransmision
+    
+    def getCosteGiro(self):
+        return self.costeGiro
+
+    def getUdsRecarg(self):
+        return self.udsRecarga
 
     def getCapacidadBateria(self):
         return self.capacidadBateria
 
-    def setCapacidadBateria(self, capacidadBateria):
-        self.capacidadBateria = capacidadBateria
-
-    def getcosteOperacion(self):
-        return self.costeOperacion
-
-    def setcosteOperacion(self, costeOperacion):
-        self.costeOperacion = costeOperacion
 
     def getEnergiaDisponible(self):
-        self.energiaDisponible = self.energiaDisponible
+        return self.energiaDisponible
 
-    def getEnergiaDisponible(self, energiaDisponibel):
-        self.energiaDisponible = energiaDisponibel
+    def setEnergiaDisponible(self, energiaDisponible):
+        self.energiaDisponible = energiaDisponible
 
     def getBandasActuales(self):
         return self.bandasActuales

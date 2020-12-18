@@ -1,6 +1,7 @@
 # Clase AStar para la practica 2 parte 2
 
 from estado import estado
+from satelite import satelite
 
 import sys
 import time
@@ -71,6 +72,16 @@ nodosExpandidos = 0
 costeTotal = 0
 LongitudPlan = 0  # FIXME ESTO ES LA PROFUNDIDAD DEL ARBOL??
 
+
+# Creamos el estado incial
+
+print(satelites[0][1][:])
+
+transmisiones1 = []
+transmisiones2 = []
+
+sat1 = satelite(satelites[0][1][0], satelites[0][1][1], satelites[0][1][2], satelites[0][1][3], satelites[0][1][4], [0,1], transmisiones1)
+sat2 = satelite(satelites[1][1][0], satelites[0][1][1], satelites[0][1][2], satelites[0][1][3], satelites[0][1][4], [2,3], transmisiones2 ) 
 
 
 

@@ -15,10 +15,10 @@ class estado():
     observables = []
 
     # Datos del satelite 1
-    sat1 = satelite()
+    sat1 = None
 
     # Datos del satelite 2
-    sat2 = satelite()
+    sat2 = None
 
     # Valor de la funcion heuristica
     h = None
