@@ -14,6 +14,7 @@ class satelite():
     """
     # Es un coste de las operaciones que puede realizar el satelite [OBSERVACION, TRANSMISION, GIRO, UDSRECARGADAS]
     
+    idSat = None
     # Atributos de costes 
     costeObservacion = 0
     costeTransmision = 0
@@ -38,8 +39,9 @@ class satelite():
     operacion = None
 
     # Constructor de satelite
-    def __init__(self, costeObservacion, costeTransmision, costeGiro, udsRecarga, capacidadBateria, bandaOrigen, retransmisiones):
+    def __init__(self, idSat,costeObservacion, costeTransmision, costeGiro, udsRecarga, capacidadBateria, bandaOrigen, retransmisiones):
         
+        self.idSat = idSat
         self.costeObservacion = costeObservacion
         self.costeTransmision = costeTransmision
         self.costeGiro = costeGiro
@@ -93,3 +95,28 @@ class satelite():
 
     def setOperacion(self, operacion):
         self.operacion = operacion
+
+
+# Operaciones que pueden realizar los satelites
+
+    def IDLE(self):
+        print('SAT'+self.idSat+' IDLE')
+
+    def carga(self):
+        carga  = self.energiaDisponible
+        self.energiaDisponible = carga+self.udsRecarga
+        if(self.energiaDisponible>self.capacidadBateria):
+            self.energiaDisponible=self.capacidadBateria
+        print('SAT'+self.idSat+' ha recargado bateria')
+    
+    #TODO HACER METODO DE GIRO
+    def girar(self):
+        print('SAT'+self.idSat+' gira a ')
+
+    #TODO HACER METODO DE OBSERVAR
+    def observar(self):
+        print('SAT'+self.idSat+' observa ')
+
+    #TODO HACER METODO DE TRANSMITIR OBSERVACIONES
+    def transmitir(self):
+        print('SAT'+self.idSat+' transmite ')

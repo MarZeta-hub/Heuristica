@@ -73,16 +73,18 @@ costeTotal = 0
 LongitudPlan = 0  # FIXME ESTO ES LA PROFUNDIDAD DEL ARBOL??
 
 
-# Creamos el estado incial
 
-print(satelites[0][1][:])
+# Creamos los satelites a partir del fichero inicial
+# TODO HACER GENERALIZABLE CON N SATELITES MEDIANTE UN ARRAY DE SATELITES
 
 transmisiones1 = []
 transmisiones2 = []
 
-sat1 = satelite(satelites[0][1][0], satelites[0][1][1], satelites[0][1][2], satelites[0][1][3], satelites[0][1][4], [0,1], transmisiones1)
-sat2 = satelite(satelites[1][1][0], satelites[0][1][1], satelites[0][1][2], satelites[0][1][3], satelites[0][1][4], [2,3], transmisiones2 ) 
+sat1 = satelite(satelites[0][0],satelites[0][1][0], satelites[0][1][1], satelites[0][1][2], satelites[0][1][3], satelites[0][1][4], [0,1], transmisiones1)
+sat2 = satelite(satelites[1][0],satelites[1][1][0], satelites[0][1][1], satelites[0][1][2], satelites[0][1][3], satelites[0][1][4], [2,3], transmisiones2 ) 
 
+
+# Creamos el estado incial
 
 
 # Algoritmo A* implementado 
