@@ -3,6 +3,8 @@
 from estado import estado
 from satelite import satelite
 
+import numpy as np
+
 import sys
 import time
 
@@ -84,7 +86,25 @@ sat1 = satelite(satelites[0][0],satelites[0][1][0], satelites[0][1][1], satelite
 sat2 = satelite(satelites[1][0],satelites[1][1][0], satelites[0][1][1], satelites[0][1][2], satelites[0][1][3], satelites[0][1][4], [2,3], transmisiones2 ) 
 
 
+# Matriz de objetos iniciales booleana
+nBandas = 4
+
+
+
+matriz = np.zeros(shape=(nBandas, 12))
+
+
+
+print(matriz)
+
+
+
+
 # Creamos el estado incial
+
+
+
+
 
 
 # Algoritmo A* implementado 
