@@ -74,33 +74,35 @@ nodosExpandidos = 0
 costeTotal = 0
 LongitudPlan = 0  # FIXME ESTO ES LA PROFUNDIDAD DEL ARBOL??
 
-
-
-# Creamos los satelites a partir del fichero inicial
-# TODO HACER GENERALIZABLE CON N SATELITES MEDIANTE UN ARRAY DE SATELITES
-
+# --Creamos Los Satélites--
+#Crear Transmisiones
 transmisiones1 = []
 transmisiones2 = []
+# Crear Satelites
+sat1 = satelite(satelites[0][0], satelites[0][1][0], satelites[0][1][1], satelites[0][1][2], satelites[0][1][3], satelites[0][1][4], [0,1], transmisiones1)
+sat2 = satelite(satelites[1][0], satelites[1][1][0], satelites[0][1][1], satelites[0][1][2], satelites[0][1][3], satelites[0][1][4], [2,3], transmisiones2) 
 
-sat1 = satelite(satelites[0][0],satelites[0][1][0], satelites[0][1][1], satelites[0][1][2], satelites[0][1][3], satelites[0][1][4], [0,1], transmisiones1)
-sat2 = satelite(satelites[1][0],satelites[1][1][0], satelites[0][1][1], satelites[0][1][2], satelites[0][1][3], satelites[0][1][4], [2,3], transmisiones2 ) 
+# --Creamos los estados Inical y Final --
+nBandas = 4 # Bandas que existen en el problema
+horas = 12 # Horas totales que pueden los satelites obtener y enviar datos   
 
+# Matrices de observables
+obsInicial = np.zeros(shape=(nBandas, 12))
+obsFinal = np.zeros(shape=(nBandas, 12))
 
-# Matriz de objetos iniciales booleana
-nBandas = 4
+# Añadir observables a la matriz de observables
+for i in range(len(objetos)):
+    obsInicial[objetos[i][0]][objetos[i][1]] = 1
 
+# Crear estado Inicial y Final
+estadoIncial = estado(None, 0, obsInicial, sat1, sat2, 0)
+estadoFinal = estado(None, 0,  obsFinal, sat1, sat2, 0)
 
+iFound = False # Si es solucion
+openList = []  # Estados que faltan por analizar
+closeList = [] # Estados ya analizados
 
-matriz = np.zeros(shape=(nBandas, 12))
-
-
-
-print(matriz)
-
-
-
-
-# Creamos el estado incial
+#CALCULAR HEURISTICA INICIAL Y FINAL
 
 
 

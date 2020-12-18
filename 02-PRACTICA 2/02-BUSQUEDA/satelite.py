@@ -1,20 +1,10 @@
 # Objeto Satélite 
 
 class satelite():
-
     
-    
-
-    """ Coste de operacion
-        0: idle
-        1: observacion de terreno
-        2: transmitir observacion
-        3: girar
-        4: recargar
-    """
     # Es un coste de las operaciones que puede realizar el satelite [OBSERVACION, TRANSMISION, GIRO, UDSRECARGADAS]
-    
     idSat = None
+
     # Atributos de costes 
     costeObservacion = 0
     costeTransmision = 0
