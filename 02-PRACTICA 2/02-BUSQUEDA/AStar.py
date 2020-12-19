@@ -254,7 +254,7 @@ while(len(openList)!=0):
 
 
     #FIXME ESTO TIENE QUE SER COMPARADO CON UNA FUNCION DE COMPARE PARA LOS PARAMETROS QUE SEAN NECESARIOS 
-    if(estadoActual==estadoFinal):
+    if(estadoActual.compare(estadoFinal)):
         # Fin del problema
         estadoFinal=estadoActual
         isFound = True
@@ -263,8 +263,11 @@ while(len(openList)!=0):
     crearNodos(estadoActual,openList)
 
 
-
-
+""" TODO 
+def checkNode(node):
+    for i in closeList:
+        if(compare(i,node)):
+"""
 
 finAlgoritmo = time.time()
 
