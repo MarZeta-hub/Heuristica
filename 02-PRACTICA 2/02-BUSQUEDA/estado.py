@@ -182,3 +182,25 @@ class estado():
         ntrsat2 = len(self.sat2.getRetransmisiones())
         valorh1 = totalObsevables + ntrsat1 + ntrsat2
         self.setHeuristica(valorh1)
+
+
+    def evaluarh2(self):
+        hora = self.horaActual
+        diferencias = 0
+
+        # Si no hay distancias a los objetos observables, quiere decir que no hay
+        for i in range(len(self.franjas)):
+            for j in range(len(self.franjas[i])):
+                
+                if(self.franjas[i][j]!=0):
+                    diferencias = diferencias + abs(j-hora)
+                    diferencias = diferencias + min(abs(i-self.sat1.bandasActuales[0]),abs(i-self.sat1.bandasActuales[1]))
+                    diferencias = diferencias + min(abs(i-self.sat2.bandasActuales[0]),abs(i-self.sat2.bandasActuales[1]))
+        
+        # Lo siguiente es comprobar si los objetos han sido retransmitidos 
+        porRetransmitir = len(self.sat1.getRetransmisiones()) + len(self.sat2.getRetransmisiones())
+
+        if(porRetransmitir>0):
+            diferencias = diferencias + porRetransmitir
+        
+        self.setHeuristica(diferencias)

@@ -30,6 +30,7 @@ def crearNodos(currentState):
     iddle(currentState, sat1, listaSat1, 1)
     iddle(currentState, sat2, listaSat2, 2)
 
+    nuevaHora = nuevaHora + 1
     for satelite1 in listaSat1:
         if satelite1.getOperacion() == "Observar":
             nuevosDatos = observables1
@@ -38,6 +39,7 @@ def crearNodos(currentState):
         for satelite2 in listaSat2:
             if satelite2.getOperacion() == "Observar":
                 nuevosDatos = observables1 + observables2
+            print ("NodoNuevo")
             estado(currentState, nuevaHora, nuevosDatos, satelite1, satelite2, currentState.getG() + nuevaHora)
 
 
@@ -48,19 +50,19 @@ def iddle(currentState, sat, lista, idSat):
 
 def girar(currentState, sat, listaSat, idSat):
     idSat = idSat - 1
-    if sat.getEnergiaDisponible() >= costeGiro[idSat-1]:
+    if sat.getEnergiaDisponible() >= costeGiro[idSat]:
         if  bandaOrigen[idSat] == sat.getBandasActuales():
-            if  min(bandaOrigen) != min(sat.getBandasActuales()):
-                satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBandasActuales(), sat.getRetransmisiones(), "Girar")
+            if  min(min(bandaOrigen)) < min(sat.getBandasActuales()):
+                satNuevo = satelite(idSat+1, sat.getEnergiaDisponible(), sat.getBandasActuales(), sat.getRetransmisiones(), "Girar")
                 currentState.girarArriba(sat)
                 listaSat.append(satNuevo)
-            elif max(bandaOrigen) != max(sat.getBandasActuales()):
-                satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBandasActuales(), sat.getRetransmisiones(), "Girar")
+            elif max(max(bandaOrigen)) > max(sat.getBandasActuales()):
+                satNuevo = satelite(idSat+1, sat.getEnergiaDisponible(), sat.getBandasActuales(), sat.getRetransmisiones(), "Girar")
                 currentState.girarAbajo(sat)
                 listaSat.append(satNuevo)
         else:
-            satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBanda(), sat.getRetransmisiones(), "Girar")
-            currentState.girarEstadoInicial(sat, bandaOrigen[idSat-1])
+            satNuevo = satelite(idSat+1, sat.getEnergiaDisponible(), sat.getBanda(), sat.getRetransmisiones(), "Girar")
+            currentState.girarEstadoInicial(sat, bandaOrigen[idSat])
             listaSat.append(satNuevo)
 
 
@@ -186,8 +188,6 @@ sat2 = satelite(satelites[1][0], capacidadBateria[1], bandaOrigen[1], transmisio
 # --Creamos los estados Inical y Final --
 nBandas = 4  # Bandas que existen en el problema
 horas = 12  # Horas totales que pueden los satelites obtener y enviar datos
-
-
 
 # Matrices de observables
 obsInicial = np.zeros(shape=(nBandas, 12), dtype="int")
