@@ -14,12 +14,13 @@ def crearNodos(currentState):
     sat2 = currentState.getSat2()
     listaSat1 = []
     listaSat2 = []
+
     # Si el satelide debe regargar
     recargar(currentState, sat1, listaSat1, 1)
     recargar(currentState, sat2, listaSat2, 2)
 
     observables1 = observar(currentState, nuevaHora, sat1, listaSat1, 1)
-    observables2 = (currentState, nuevaHora, sat2, listaSat2, 2)
+    observables2 = observar(currentState, nuevaHora, sat2, listaSat2, 2)
 
     retransmitir(currentState, sat1, listaSat1, 1)
     retransmitir(currentState, sat2, listaSat2, 2)
@@ -40,7 +41,7 @@ def crearNodos(currentState):
             if satelite2.getOperacion() == "Observar":
                 nuevosDatos = observables1 + observables2
             print ("NodoNuevo")
-            estado(currentState, nuevaHora, nuevosDatos, satelite1, satelite2, currentState.getG() + nuevaHora)
+            nextState = estado(currentState, nuevaHora, nuevosDatos, satelite1, satelite2, currentState.getG() + nuevaHora)
 
 
 def iddle(currentState, sat, lista, idSat):
@@ -53,16 +54,19 @@ def girar(currentState, sat, listaSat, idSat):
     if sat.getEnergiaDisponible() >= costeGiro[idSat]:
         if  bandaOrigen[idSat] == sat.getBandasActuales():
             if  min(min(bandaOrigen)) < min(sat.getBandasActuales()):
-                satNuevo = satelite(idSat+1, sat.getEnergiaDisponible(), sat.getBandasActuales(), sat.getRetransmisiones(), "Girar")
-                currentState.girarArriba(sat)
+                bandasNuevas = sat.getBandasActuales()[:]
+                satNuevo = satelite(idSat+1, sat.getEnergiaDisponible(), bandasNuevas, sat.getRetransmisiones(), "Girar")
+                currentState.girarArriba(sat, bandasNuevas)
                 listaSat.append(satNuevo)
-            elif max(max(bandaOrigen)) > max(sat.getBandasActuales()):
-                satNuevo = satelite(idSat+1, sat.getEnergiaDisponible(), sat.getBandasActuales(), sat.getRetransmisiones(), "Girar")
-                currentState.girarAbajo(sat)
+            if max(max(bandaOrigen)) > max(sat.getBandasActuales()):
+                bandasNuevas = sat.getBandasActuales()[:]
+                satNuevo = satelite(idSat+1, sat.getEnergiaDisponible(), bandasNuevas, sat.getRetransmisiones(), "Girar")
+                currentState.girarAbajo(sat, bandasNuevas)
                 listaSat.append(satNuevo)
         else:
-            satNuevo = satelite(idSat+1, sat.getEnergiaDisponible(), sat.getBanda(), sat.getRetransmisiones(), "Girar")
-            currentState.girarEstadoInicial(sat, bandaOrigen[idSat])
+            bandasNuevas = sat.getBandasActuales()[:]
+            satNuevo = satelite(idSat+1, sat.getEnergiaDisponible(), bandasNuevas, sat.getRetransmisiones(), "Girar")
+            currentState.girarEstadoInicial(sat, bandaOrigen[idSat], bandasNuevas)
             listaSat.append(satNuevo)
 
 
@@ -73,6 +77,7 @@ def retransmitir(currentState, sat,listaSat, idSat):
         currentState.transmitir(satNuevo)
         listaSat.append(satNuevo)
 
+# En el caso de que un satelite pueda recargar
 def recargar(currentState, sat, listaSat, idSat):
     idSat = idSat-1
     if capacidadBateria[idSat] > sat.getEnergiaDisponible():
@@ -168,7 +173,6 @@ costeTransmision = []
 costeGiro = []
 udsRecarga = []
 capacidadBateria = []
-bandaOrigen = [[0,1], [2,3]]
 # Crear Transmisiones
 transmisiones1 = []
 transmisiones2 = []

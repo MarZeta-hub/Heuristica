@@ -110,27 +110,21 @@ class estado():
         print('SAT'+sat.idSat+' ha recargado bateria')
     
     # Girar hacia abajo
-    def girarAbajo(self, sat):
-        bActual = sat.getBandasActuales()
+    def girarAbajo(self, sat, bActual):
         bActual[0] = bActual[0]+1
         bActual[1] = bActual[1]+1
-        sat.setBandasActuales(bActual)
         print('SAT', sat.getId(),' gira a ', bActual)
 
     # Girar hacia arriba
-    def girarArriba(self, sat):
-        bActual = sat.getBandasActuales()
+    def girarArriba(self, sat, bActual):
         bActual[0] = bActual[0]-1
         bActual[1] = bActual[1]-1
-        sat.setBandasActuales(bActual)
         print('SAT', sat.getId(),' gira a ', bActual)
 
     # Volver al estado inicial
-    def girarEstadoInicial(self, sat, bOrigen):
-        bActual = sat.getBandasActuales()
+    def girarEstadoInicial(self, sat, bOrigen, bActual):
         bActual[0] = bOrigen[0]
         bActual[1] = bOrigen[1]
-        sat.setBandasActuales(bActual)
         print('SAT', sat.getId(),' gira a ', bActual)
 
     # Observar un objeto en las bandas bajas del sat
