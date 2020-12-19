@@ -8,7 +8,7 @@ import numpy as np
 import sys
 import time
 
-def crearNodos(currentState):
+def crearNodos(currentState, openList):
     nuevaHora = currentState.getHoraActual()
     sat1 = currentState.getSat1()
     sat2 = currentState.getSat2()
@@ -32,6 +32,12 @@ def crearNodos(currentState):
     iddle(currentState, sat2, listaSat2, 2)
 
     nuevaHora = nuevaHora + 1
+    coste = currentState.getG()+1
+    if(nuevaHora==12):
+        nuevaHora=0
+        coste = coste + 11
+
+
     for satelite1 in listaSat1:
         if satelite1.getOperacion() == "Observar":
             nuevosDatos = observables1
@@ -41,7 +47,15 @@ def crearNodos(currentState):
             if satelite2.getOperacion() == "Observar":
                 nuevosDatos = observables1 + observables2
             print ("NodoNuevo")
-            nextState = estado(currentState, nuevaHora, nuevosDatos, satelite1, satelite2, currentState.getG() + nuevaHora)
+            nextState = estado(currentState, nuevaHora, nuevosDatos, satelite1, satelite2, coste)
+            nextState.evaluarh1()
+            nextState.setEvaluacion()
+            openList.append(nextState)
+
+    # Se ordena la lista bajo el criterio de la funcion de evaluacion
+    openList = sorted(openList, key=lambda estado: estado.getF())
+
+
 
 
 def iddle(currentState, sat, lista, idSat):
@@ -205,7 +219,7 @@ for i in range(len(objetos)):
 estadoIncial = estado(None, 0, obsInicial, sat1, sat2, 0)
 estadoFinal = estado(None, 0,  obsFinal, sat1, sat2, 0)
 
-iFound = False  # Si es solucion
+isFound = False  # Si es solucion
 openList = []  # Estados que faltan por analizar
 closeList = []  # Estados ya analizados
 
@@ -213,11 +227,43 @@ closeList = []  # Estados ya analizados
 
 # Algoritmo A* implementado
 
+
+
+
 inicioAlgoritmo = time.time()
 
-crearNodos(estadoIncial)
+# Aqui se elige la heuristica que se va a utilizar 
+estadoIncial.evaluarh1()
+estadoIncial.setEvaluacion()
 
-""" TODO INSERTAR AQUI ALGORITMO """
+openList.append(estadoIncial)
+
+# Estado actual que va viendo cada 
+estadoActual = None
+
+while(len(openList)!=0):
+    
+    
+    estadoActual = openList.pop(0)
+    
+    # TODO verificar si el nodo es igual a otro con menor coste que el generado, de no ser igual, se añade a la lista cerrada
+    
+
+    closeList.append(estadoActual)
+
+
+
+    #FIXME ESTO TIENE QUE SER COMPARADO CON UNA FUNCION DE COMPARE PARA LOS PARAMETROS QUE SEAN NECESARIOS 
+    if(estadoActual==estadoFinal):
+        # Fin del problema
+        estadoFinal=estadoActual
+        isFound = True
+        break
+    
+    crearNodos(estadoActual,openList)
+
+
+
 
 
 finAlgoritmo = time.time()

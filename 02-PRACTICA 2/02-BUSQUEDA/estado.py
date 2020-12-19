@@ -66,8 +66,7 @@ class estado():
     def getH(self):
         return self.h
 
-    def setHeuristica(self, value):
-        self.setH(value)
+    def setEvaluacion(self):
         self.setF(self.getG() + self.getH())
 
     def setH(self, h):
@@ -175,7 +174,7 @@ class estado():
         ntrsat1 = len(self.sat1.getRetransmisiones())
         ntrsat2 = len(self.sat2.getRetransmisiones())
         valorh1 = totalObsevables + ntrsat1 + ntrsat2
-        self.setHeuristica(valorh1)
+        self.setH(valorh1)
 
 
     def evaluarh2(self):
@@ -197,4 +196,10 @@ class estado():
         if(porRetransmitir>0):
             diferencias = diferencias + porRetransmitir
         
-        self.setHeuristica(diferencias)
+        self.setH(diferencias)
+
+
+    def compare(self, estado2):
+        if(self.franjas == estado2.franjas and self.sat1.retransmisiones == estado2.sat1.retransmisiones and self.sat2.bandaOrigen == estado2.sat2.retransmisiones):
+            return True
+        return False
