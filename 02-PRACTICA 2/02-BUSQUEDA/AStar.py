@@ -20,8 +20,6 @@ inicio = inicio[:3]
 # Caso de error fallo de formato fichero de entrada
 if(inicio != 'OBS'):
     raise Exception ('Error, formato fichero de entrada incorrecto')
-    
-
 
 # Saltamos la cabecera de la primera linea de OBS y separamos por coordenadasS
 #f.seek(5)
@@ -80,19 +78,19 @@ transmisiones1 = []
 transmisiones2 = []
 # Crear Satelites
 sat1 = satelite(satelites[0][0], satelites[0][1][0], satelites[0][1][1], satelites[0][1][2], satelites[0][1][3], satelites[0][1][4], [0,1], transmisiones1)
-sat2 = satelite(satelites[1][0], satelites[1][1][0], satelites[0][1][1], satelites[0][1][2], satelites[0][1][3], satelites[0][1][4], [2,3], transmisiones2) 
+sat2 = satelite(satelites[1][0], satelites[1][1][0], satelites[1][1][1], satelites[1][1][2], satelites[1][1][3], satelites[1][1][4], [2,3], transmisiones2) 
 
 # --Creamos los estados Inical y Final --
 nBandas = 4 # Bandas que existen en el problema
 horas = 12 # Horas totales que pueden los satelites obtener y enviar datos   
 
 # Matrices de observables
-obsInicial = np.zeros(shape=(nBandas, 12))
-obsFinal = np.zeros(shape=(nBandas, 12))
+obsInicial = np.zeros(shape=(nBandas, 12), dtype="int")
+obsFinal = np.zeros(shape=(nBandas, 12), dtype="int")
 
 # Añadir observables a la matriz de observables
 for i in range(len(objetos)):
-    obsInicial[objetos[i][0]][objetos[i][1]] = 1
+    obsInicial[objetos[i][0]][objetos[i][1]] = i + 1
 
 # Crear estado Inicial y Final
 estadoIncial = estado(None, 0, obsInicial, sat1, sat2, 0)
@@ -105,15 +103,7 @@ closeList = [] # Estados ya analizados
 #CALCULAR HEURISTICA INICIAL Y FINAL
 
 
-
-
-
-
 # Algoritmo A* implementado 
-inicioAlgoritmo = time.time()
-
-
-
 
 
 
