@@ -9,9 +9,7 @@ import sys
 import time
 
 def crearNodos(currentState):
-    nuevaHora = currentState.getHoraActual() +1
-    if nuevaHora == 11:
-        nuevaHora = 0
+    nuevaHora = currentState.getHoraActual()
     sat1 = currentState.getSat1()
     sat2 = currentState.getSat2()
     listaSat1 = []
@@ -68,14 +66,15 @@ def girar(currentState, sat, listaSat, idSat):
 
 def retransmitir(currentState, sat,listaSat, idSat):
     if sat.getEnergiaDisponible() >= costeTransmision[idSat-1] and len(sat.getRetransmisiones()) > 0:
-        satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBanda(), sat.getRetransmisiones(), "Retransmitir")
+        listaObs = sat.getRetransmisiones()[:]
+        satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBandasActuales(), listaObs, "Retransmitir")
         currentState.transmitir(satNuevo)
         listaSat.append(satNuevo)
 
 def recargar(currentState, sat, listaSat, idSat):
     idSat = idSat-1
     if capacidadBateria[idSat] > sat.getEnergiaDisponible():
-        satNuevo = satelite(idSat + 1, sat.getEnergiaDisponible(), sat.getBanda(), sat.getRetransmisiones(), "Recargar")
+        satNuevo = satelite(idSat + 1, sat.getEnergiaDisponible(), sat.getBandasActuales(), sat.getRetransmisiones(), "Recargar")
         currentState.carga(satNuevo, capacidadBateria[idSat], udsRecarga[idSat])
         listaSat.append(satNuevo)
 
@@ -83,12 +82,14 @@ def observar(currentState, horaActual, sat, listaSat, idSat):
     franjas = currentState.getFranjas()
     devolverFranjas = []
     if sat.getEnergiaDisponible() >= costeObservacion[idSat-1]: 
-        if franjas[sat.getBandasActuales()[0]][horaActual+1] != 0:
-            satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBanda(), sat.getRetransmisiones(), "Observar")
+        if franjas[sat.getBandasActuales()[0]][horaActual] != 0:
+            listaObs = sat.getRetransmisiones()[:]
+            satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBandasActuales(), listaObs, "Observar")
             devolverFranjas = currentState.observarArriba(satNuevo)
             listaSat.append(satNuevo)
-        if franjas[sat.getBandasActuales()[1]][horaActual+1] != 0:
-            satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBanda(), sat.getRetransmisiones(), "Observar")
+        if franjas[sat.getBandasActuales()[1]][horaActual] != 0:
+            listaObs = sat.getRetransmisiones()[:]
+            satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBandasActuales(), listaObs, "Observar")
             devolverFranjas = currentState.observarAbajo(satNuevo)
             listaSat.append(satNuevo)
     return devolverFranjas
