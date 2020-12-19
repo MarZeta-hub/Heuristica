@@ -8,6 +8,92 @@ import numpy as np
 import sys
 import time
 
+def crearNodos(currentState):
+    nuevaHora = currentState.getHoraActual() +1
+    if nuevaHora == 11:
+        nuevaHora = 0
+    sat1 = currentState.getSat1()
+    sat2 = currentState.getSat2()
+    listaSat1 = []
+    listaSat2 = []
+    # Si el satelide debe regargar
+    recargar(currentState, sat1, listaSat1, 1)
+    recargar(currentState, sat2, listaSat2, 2)
+
+    observables1 = observar(currentState, nuevaHora, sat1, listaSat1, 1)
+    observables2 = (currentState, nuevaHora, sat2, listaSat2, 2)
+
+    retransmitir(currentState, sat1, listaSat1, 1)
+    retransmitir(currentState, sat2, listaSat2, 2)
+
+    girar(currentState, sat1, listaSat1, 1)
+    girar(currentState, sat2, listaSat2, 2)
+
+    iddle(currentState, sat1, listaSat1, 1)
+    iddle(currentState, sat2, listaSat2, 2)
+
+    for satelite1 in listaSat1:
+        if satelite1.getOperacion() == "Observar":
+            nuevosDatos = observables1
+        else:
+            nuevosDatos = currentState.getFranjas()
+        for satelite2 in listaSat2:
+            if satelite2.getOperacion() == "Observar":
+                nuevosDatos = observables1 + observables2
+            estado(currentState, nuevaHora, nuevosDatos, satelite1, satelite2, currentState.getG() + nuevaHora)
+
+
+def iddle(currentState, sat, lista, idSat):
+    satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBandasActuales(), sat.getRetransmisiones(), "Girar")
+    currentState.IDLE(sat)
+    lista.append(satNuevo)
+
+def girar(currentState, sat, listaSat, idSat):
+    idSat = idSat - 1
+    if sat.getEnergiaDisponible() >= costeGiro[idSat-1]:
+        if  bandaOrigen[idSat] == sat.getBandasActuales():
+            if  min(bandaOrigen) != min(sat.getBandasActuales()):
+                satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBandasActuales(), sat.getRetransmisiones(), "Girar")
+                currentState.girarArriba(sat)
+                listaSat.append(satNuevo)
+            elif max(bandaOrigen) != max(sat.getBandasActuales()):
+                satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBandasActuales(), sat.getRetransmisiones(), "Girar")
+                currentState.girarAbajo(sat)
+                listaSat.append(satNuevo)
+        else:
+            satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBanda(), sat.getRetransmisiones(), "Girar")
+            currentState.girarEstadoInicial(sat, bandaOrigen[idSat-1])
+            listaSat.append(satNuevo)
+
+
+def retransmitir(currentState, sat,listaSat, idSat):
+    if sat.getEnergiaDisponible() >= costeTransmision[idSat-1] and len(sat.getRetransmisiones()) > 0:
+        satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBanda(), sat.getRetransmisiones(), "Retransmitir")
+        currentState.transmitir(satNuevo)
+        listaSat.append(satNuevo)
+
+def recargar(currentState, sat, listaSat, idSat):
+    idSat = idSat-1
+    if capacidadBateria[idSat] > sat.getEnergiaDisponible():
+        satNuevo = satelite(idSat + 1, sat.getEnergiaDisponible(), sat.getBanda(), sat.getRetransmisiones(), "Recargar")
+        currentState.carga(satNuevo, capacidadBateria[idSat], udsRecarga[idSat])
+        listaSat.append(satNuevo)
+
+def observar(currentState, horaActual, sat, listaSat, idSat):
+    franjas = currentState.getFranjas()
+    devolverFranjas = []
+    if sat.getEnergiaDisponible() >= costeObservacion[idSat-1]: 
+        if franjas[sat.getBandasActuales()[0]][horaActual+1] != 0:
+            satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBanda(), sat.getRetransmisiones(), "Observar")
+            devolverFranjas = currentState.observarArriba(satNuevo)
+            listaSat.append(satNuevo)
+        if franjas[sat.getBandasActuales()[1]][horaActual+1] != 0:
+            satNuevo = satelite(idSat, sat.getEnergiaDisponible(), sat.getBanda(), sat.getRetransmisiones(), "Observar")
+            devolverFranjas = currentState.observarAbajo(satNuevo)
+            listaSat.append(satNuevo)
+    return devolverFranjas
+
+
 
 # Entrada de fichero
 f = open('problema.prob')
@@ -19,17 +105,17 @@ inicio = inicio[:3]
 
 # Caso de error fallo de formato fichero de entrada
 if(inicio != 'OBS'):
-    raise Exception ('Error, formato fichero de entrada incorrecto')
+    raise Exception('Error, formato fichero de entrada incorrecto')
 
 # Saltamos la cabecera de la primera linea de OBS y separamos por coordenadasS
-#f.seek(5)
-OBS =f.readline().split(';')
+# f.seek(5)
+OBS = f.readline().split(';')
 
 # Objetos es la lista de listas de numeros enteros que se corresponden con las coordenadas de los objetos visibles
 objetos = []
 for i in OBS:
     lista = []
-    a = i.replace(')','').replace('(','').split(',')
+    a = i.replace(')', '').replace('(', '').split(',')
     lista.append(int(a[0]))
     lista.append(int(a[1]))
 
@@ -51,14 +137,13 @@ for reader in f:
     sat.append(contador)
 
     # Separamos por ; para obtener los parametros
-    b= a[1].split(';')
+    b = a[1].split(';')
     # Realizamos una conversion a numeros enteros
     c = []
     for j in b:
         c.append(int(j))
 
     sat.append(c)
-
 
     satelites.append(sat)
     contador = contador+1
@@ -73,16 +158,35 @@ costeTotal = 0
 LongitudPlan = 0  # FIXME ESTO ES LA PROFUNDIDAD DEL ARBOL??
 
 # --Creamos Los Satélites--
-#Crear Transmisiones
+# Crear las variables
+bandaOrigen = [[0,1], [2,3]]
+costeObservacion = []
+costeTransmision = []
+costeGiro = []
+udsRecarga = []
+capacidadBateria = []
+bandaOrigen = [[0,1], [2,3]]
+# Crear Transmisiones
 transmisiones1 = []
 transmisiones2 = []
+
+# Valores estáticos de los satelites
+for i in range(len(satelites)):
+    costeObservacion.append(satelites[i][1][0])
+    costeTransmision.append(satelites[i][1][1])
+    costeGiro.append(satelites[i][1][2])
+    udsRecarga.append(satelites[i][1][3])
+    capacidadBateria.append(satelites[i][1][4])
+
 # Crear Satelites
-sat1 = satelite(satelites[0][0], satelites[0][1][0], satelites[0][1][1], satelites[0][1][2], satelites[0][1][3], satelites[0][1][4], [0,1], transmisiones1)
-sat2 = satelite(satelites[1][0], satelites[1][1][0], satelites[1][1][1], satelites[1][1][2], satelites[1][1][3], satelites[1][1][4], [2,3], transmisiones2) 
+sat1 = satelite(satelites[0][0], capacidadBateria[0], bandaOrigen[0], transmisiones1, "iddle")
+sat2 = satelite(satelites[1][0], capacidadBateria[1], bandaOrigen[1], transmisiones2, "iddle")
 
 # --Creamos los estados Inical y Final --
-nBandas = 4 # Bandas que existen en el problema
-horas = 12 # Horas totales que pueden los satelites obtener y enviar datos   
+nBandas = 4  # Bandas que existen en el problema
+horas = 12  # Horas totales que pueden los satelites obtener y enviar datos
+
+
 
 # Matrices de observables
 obsInicial = np.zeros(shape=(nBandas, 12), dtype="int")
@@ -96,27 +200,19 @@ for i in range(len(objetos)):
 estadoIncial = estado(None, 0, obsInicial, sat1, sat2, 0)
 estadoFinal = estado(None, 0,  obsFinal, sat1, sat2, 0)
 
-iFound = False # Si es solucion
+iFound = False  # Si es solucion
 openList = []  # Estados que faltan por analizar
-closeList = [] # Estados ya analizados
+closeList = []  # Estados ya analizados
 
-#CALCULAR HEURISTICA INICIAL Y FINAL
+# CALCULAR HEURISTICA INICIAL Y FINAL
 
+# Algoritmo A* implementado
 
-# Algoritmo A* implementado 
+inicioAlgoritmo = time.time()
 
-
-
-
-
+crearNodos(estadoIncial)
 
 """ TODO INSERTAR AQUI ALGORITMO """
-
-
-
-
-
-
 
 
 finAlgoritmo = time.time()
@@ -125,15 +221,14 @@ finAlgoritmo = time.time()
 tiempoEjecucionAlgoritmo = finAlgoritmo - inicioAlgoritmo
 
 
-
 # Salida del fichero de estadisticas
 
 f = open("problema.prob.statistics", "w")
 
-time = "Tiempo total: %f \n"%tiempoEjecucionAlgoritmo
-totalcost = "Coste total: %i \n"%costeTotal
-longPlan = "Longitud del plan: %i \n"%LongitudPlan
-expandedNodes = "Nodos expandidos: %i \n"%nodosExpandidos
+time = "Tiempo total: %f \n" % tiempoEjecucionAlgoritmo
+totalcost = "Coste total: %i \n" % costeTotal
+longPlan = "Longitud del plan: %i \n" % LongitudPlan
+expandedNodes = "Nodos expandidos: %i \n" % nodosExpandidos
 
 f.write(time)
 f.write(totalcost)
@@ -141,3 +236,5 @@ f.write(longPlan)
 f.write(expandedNodes)
 
 f.close()
+
+

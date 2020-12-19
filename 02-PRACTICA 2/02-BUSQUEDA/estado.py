@@ -79,10 +79,10 @@ class estado():
     def setF(self, f):
         self.f = f
 
-    def getfranjas(self):
+    def getFranjas(self):
         return self.franjas
 
-    def setfranjas(self, franjas):
+    def setFranjas(self, franjas):
         self.franjas = franjas
 
     def getSat1(self):
@@ -97,16 +97,13 @@ class estado():
 # Operaciones que pueden realizar los satelites
 
     def IDLE(self, sat):
-        sat.setOperacion("iddle");
-        print('SAT'+sat.idSat+' IDLE')
+        print('SAT',sat.idSat,' IDLE')
 
     # Metodo de cargar Bateria
-    def carga(self, sat):
+    def carga(self, sat, total, udsRecarga):
         carga = sat.getEnergiaDisponible()
-        total = sat.getCapacidadBateria()
-        udsRecarga = sat.getRecarga()
         if carga != total :
-            carga = carga+udsRecarga
+            carga = carga + udsRecarga
             if carga >= total:
                 carga = total
             sat.setEnergiaDisponible(carga)
@@ -114,38 +111,26 @@ class estado():
     
     # Girar hacia abajo
     def girarAbajo(self, sat):
-        bOrigen = sat.getBandaOrigen()
         bActual = sat.getBandasActuales()
-        bCargaFinal = sat.getEnergiaDisponible() - sat.getCosteGiro()
-        if bOrigen == bActual or 0 <= bCargaFinal:
-            bActual[0] = bActual[0]+1
-            bActual[1] = bActual[1]+1
-            sat.setBandasActuales(bActual)
-            sat.setEnergiaDisponible(bCargaFinal)
+        bActual[0] = bActual[0]+1
+        bActual[1] = bActual[1]+1
+        sat.setBandasActuales(bActual)
         print('SAT', sat.getId(),' gira a ', bActual)
 
     # Girar hacia arriba
     def girarArriba(self, sat):
-        bOrigen = sat.getBandaOrigen()
         bActual = sat.getBandasActuales()
-        bCargaFinal = sat.getEnergiaDisponible() - sat.getCosteGiro()
-        if bOrigen == bActual and 0 <= bCargaFinal:
-            bActual[0] = bActual[0]-1
-            bActual[1] = bActual[1]-1
-            sat.setBandasActuales(bActual)
-            sat.setEnergiaDisponible(bCargaFinal)
+        bActual[0] = bActual[0]-1
+        bActual[1] = bActual[1]-1
+        sat.setBandasActuales(bActual)
         print('SAT', sat.getId(),' gira a ', bActual)
 
     # Volver al estado inicial
-    def girarEstadoInicial(self, sat):
-        bOrigen = sat.getBandaOrigen()
+    def girarEstadoInicial(self, sat, bOrigen):
         bActual = sat.getBandasActuales()
-        bCargaFinal = sat.getEnergiaDisponible() - sat.getCosteGiro()
-        if bOrigen != bActual and 0 <= bCargaFinal:
-            bActual[0] = bOrigen[0]
-            bActual[1] = bOrigen[1]
-            sat.setBandasActuales(bActual)
-            sat.setEnergiaDisponible(bCargaFinal)
+        bActual[0] = bOrigen[0]
+        bActual[1] = bOrigen[1]
+        sat.setBandasActuales(bActual)
         print('SAT', sat.getId(),' gira a ', bActual)
 
     # Observar un objeto en las bandas bajas del sat
@@ -164,26 +149,20 @@ class estado():
 
     # Transmite un observable que esta
     def transmitir(self, sat):
-        bCargaFinal = sat.getEnergiaDisponible() - sat.getCosteTransmision()
         lista = sat.getRetransmisiones()
-        if len(lista) != 0 and bCargaFinal >= 0:
+        if len(lista) != 0:
             transmitido = lista.pop(0)
-            sat.setEnergiaDisponible(bCargaFinal)
             print('SAT',sat.idSat,' transmite ',transmitido)
         else:
             print("no transmito nada")
 
     # Observar objeto
     def observar(self, observable, sat):
-        bCargaFinal = sat.getEnergiaDisponible() - sat.getCosteObservacion()
         lista = sat.getRetransmisiones()
-        if observable != 0 and bCargaFinal >= 0:
-            nuevoDato = 'O'+str(observable) 
-            lista.append(nuevoDato)
-            sat.setEnergiaDisponible(bCargaFinal)
-            print('SAT',sat.getId(),' observa ',nuevoDato)
-        else:
-            print ("no observa nada")
+        nuevoDato = 'O'+str(observable) 
+        lista.append(nuevoDato)
+        print('SAT',sat.getId(),' observa ',nuevoDato)
+        return observable
 
     # Creamos las funciones heuristicas 
     def evaluarh1(self):
