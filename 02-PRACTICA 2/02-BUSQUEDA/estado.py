@@ -12,9 +12,6 @@ class estado():
     # Hora actual en la que se encuentra el estado
     horaActual = 0
 
-    # Puntos de observacion disponibles (su posicion y hora)
-    franjas = []
-
     # Datos del satelite 1
     sat1 = None
 
@@ -31,10 +28,9 @@ class estado():
     f = None
 
     # Funcion constructor
-    def __init__(self, nodoPadre ,horaActual, franjas,  sat1, sat2, coste):
+    def __init__(self, nodoPadre ,horaActual, sat1, sat2, coste):
         self.nodoPadre = nodoPadre
         self.horaActual = horaActual
-        self.franjas = franjas
         self.sat1 = sat1
         self.sat2 = sat2
         if self.nodoPadre == None:
@@ -78,84 +74,11 @@ class estado():
     def setF(self, f):
         self.f = f
 
-    def getFranjas(self):
-        return self.franjas
-
-    def setFranjas(self, franjas):
-        self.franjas = franjas
-
     def getSat1(self):
         return self.sat1
 
     def getSat2(self):
         return self.sat2
-
-    def getLimites(self):
-        return [0, len(self.franjas)]
-
-# Operaciones que pueden realizar los satelites
-
-    def IDLE(self, sat):
-        print('SAT',sat.idSat,' IDLE')
-
-    # Metodo de cargar Bateria
-    def carga(self, sat, total, udsRecarga):
-        carga = sat.getEnergiaDisponible()
-        if carga != total :
-            carga = carga + udsRecarga
-            if carga >= total:
-                carga = total
-            sat.setEnergiaDisponible(carga)
-        print('SAT'+sat.idSat+' ha recargado bateria')
-    
-    # Girar hacia abajo
-    def girarAbajo(self, sat, bActual):
-        bActual[0] = bActual[0]+1
-        bActual[1] = bActual[1]+1
-        print('SAT', sat.getId(),' gira a ', bActual)
-
-    # Girar hacia arriba
-    def girarArriba(self, sat, bActual):
-        bActual[0] = bActual[0]-1
-        bActual[1] = bActual[1]-1
-        print('SAT', sat.getId(),' gira a ', bActual)
-
-    # Volver al estado inicial
-    def girarEstadoInicial(self, sat, bOrigen, bActual):
-        bActual[0] = bOrigen[0]
-        bActual[1] = bOrigen[1]
-        print('SAT', sat.getId(),' gira a ', bActual)
-
-    # Observar un objeto en las bandas bajas del sat
-    def observarArriba(self, sat):
-        bActual = sat.getBandasActuales()
-        hora = self.getHoraActual()
-        observable = self.franjas[bActual[0]][hora]
-        self.observar(observable,sat)
-
-    # Observar un objeto en las bandas altas del sat
-    def observarAbajo(self, sat):
-        bActual = sat.getBandasActuales()
-        hora = self.getHoraActual()
-        observable = self.franjas[bActual[1]][hora]
-        self.observar(observable,sat)
-
-    # Transmite un observable que esta
-    def transmitir(self, sat):
-        lista = sat.getRetransmisiones()
-        if len(lista) != 0:
-            transmitido = lista.pop(0)
-            print('SAT',sat.idSat,' transmite ',transmitido)
-        else:
-            print("no transmito nada")
-
-    # Observar objeto
-    def observar(self, observable, sat):
-        lista = sat.getRetransmisiones()
-        nuevoDato = 'O'+str(observable) 
-        lista.append(nuevoDato)
-        print('SAT',sat.getId(),' observa ',nuevoDato)
-        return observable
 
     # Creamos las funciones heuristicas 
     def evaluarh1(self):
@@ -163,9 +86,10 @@ class estado():
         totalObsevables = 0
 
        # self.getObservables()
-        for i in range(len(self.franjas)):
-            for j in range(len(self.franjas[i])):
-                if self.franjas[i][j] != 0:
+        matrizObservable = self.sat1.getMatrizObservable()
+        for i in range(len(matrizObservable)):
+            for j in range(len(matrizObservable[i])):
+                if matrizObservable[i][j] != 0:
                     totalObsevables = totalObsevables + 1
 
         # Multiplicamos por 2 los observables para que influya de forma mas negativa en la heuristica
@@ -182,10 +106,10 @@ class estado():
         diferencias = 0
 
         # Si no hay distancias a los objetos observables, quiere decir que no hay
-        for i in range(len(self.franjas)):
-            for j in range(len(self.franjas[i])):
+        for i in range(len(self.sat1.getMatrizObservable())):
+            for j in range(len(self.sat1.getMatrizObservable()[i])):
                 
-                if(self.franjas[i][j]!=0):
+                if(self.sat1.getMatrizObservable()[i][j]!=0):
                     diferencias = diferencias + abs(j-hora)
                     diferencias = diferencias + min(abs(i-self.sat1.bandasActuales[0]),abs(i-self.sat1.bandasActuales[1]))
                     diferencias = diferencias + min(abs(i-self.sat2.bandasActuales[0]),abs(i-self.sat2.bandasActuales[1]))
@@ -200,6 +124,23 @@ class estado():
 
 
     def compare(self, estado2):
-        if(self.franjas == estado2.franjas and self.sat1.retransmisiones == estado2.sat1.retransmisiones and self.sat2.bandaOrigen == estado2.sat2.retransmisiones):
-            return True
-        return False
+        for i in range(len(self.sat1.getMatrizObservable())):
+            for j in range(len(self.sat1.getMatrizObservable()[i])):
+                if self.sat1.getMatrizObservable()[i][j] != estado2.sat1.getMatrizObservable()[i][j]:
+                    return False
+
+        if len(self.sat1.getRetransmisiones() ) != len(estado2.sat1.getRetransmisiones() ):
+            return False
+
+        if len(self.sat2.getRetransmisiones() ) != len(estado2.sat2.getRetransmisiones() ):
+            return False
+
+        for i in range(len (self.sat1.getRetransmisiones()) ):
+            if self.sat1.getRetransmisiones() != estado2.sat1.getRetransmisiones():
+                return False
+
+        for i in range(len (self.sat2.getRetransmisiones()) ):
+            if self.sat2.getRetransmisiones() != estado2.sat2.getRetransmisiones():
+                return False
+        
+        return True
