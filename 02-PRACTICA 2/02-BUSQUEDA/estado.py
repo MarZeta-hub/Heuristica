@@ -33,10 +33,7 @@ class estado():
         self.horaActual = horaActual
         self.sat1 = sat1
         self.sat2 = sat2
-        if self.nodoPadre == None:
-            self.g = coste
-        else:
-            self.g = coste + self.nodoPadre.getG()
+        self.g = coste
 
 
     # A partir de aquí se implementan los getters y setters
@@ -93,11 +90,22 @@ class estado():
                     totalObsevables = totalObsevables + 1
 
         # Multiplicamos por 2 los observables para que influya de forma mas negativa en la heuristica
-        totalObsevables = totalObsevables*2
+        totalObsevables = totalObsevables*10
+        
         # Sumamos las transmisiones que tiene pendientes de hacer cada uno de los satelites
         ntrsat1 = len(self.sat1.getRetransmisiones())
         ntrsat2 = len(self.sat2.getRetransmisiones())
-        valorh1 = totalObsevables + ntrsat1 + ntrsat2
+
+        # Añadimos un sistema para perjudicar si esta sin bateria para recargar cuanto antes
+        r1 = 0 
+        r2 = 0
+
+        if(self.sat1.energiaDisponible==0):
+            r1=5
+        if(self.sat2.energiaDisponible==0):
+            r2=5
+
+        valorh1 = totalObsevables + ntrsat1 + ntrsat2 + r1 + r2
         self.setH(valorh1)
 
 
@@ -115,7 +123,7 @@ class estado():
                     diferencias = diferencias + min(abs(i-self.sat2.bandasActuales[0]),abs(i-self.sat2.bandasActuales[1]))
         
         # Lo siguiente es comprobar si los objetos han sido retransmitidos 
-        porRetransmitir = len(self.sat1.getRetransmisiones()) + len(self.sat2.getRetransmisiones())
+        porRetransmitir = len(self.sat1.getRetransmisiones()) + len(self.sat2.getRetransmisiones()) 
 
         if(porRetransmitir>0):
             diferencias = diferencias + porRetransmitir
@@ -123,7 +131,7 @@ class estado():
         self.setH(diferencias)
 
 
-    def compare(self, estado2):
+    def compare(self, estado2, modo):
         for i in range(len(self.sat1.getMatrizObservable())):
             for j in range(len(self.sat1.getMatrizObservable()[i])):
                 if self.sat1.getMatrizObservable()[i][j] != estado2.sat1.getMatrizObservable()[i][j]:
@@ -135,12 +143,31 @@ class estado():
         if len(self.sat2.getRetransmisiones() ) != len(estado2.sat2.getRetransmisiones() ):
             return False
 
-        for i in range(len (self.sat1.getRetransmisiones()) ):
-            if self.sat1.getRetransmisiones() != estado2.sat1.getRetransmisiones():
+        if modo == 1:
+            if self.getHoraActual() != estado2.getHoraActual():
                 return False
 
-        for i in range(len (self.sat2.getRetransmisiones()) ):
-            if self.sat2.getRetransmisiones() != estado2.sat2.getRetransmisiones():
+            if self.sat1.getBandasActuales() != estado2.sat1.getBandasActuales():
                 return False
-        
+
+            if self.sat2.getBandasActuales() != estado2.sat2.getBandasActuales():
+                return False
+
+            if self.sat1.getOperacion() != estado2.sat1.getOperacion():
+                return False
+
+            if self.sat2.getOperacion() != estado2.sat2.getOperacion():
+                return False
+
+            for i in range(len (self.sat1.getRetransmisiones()) ):
+                if self.sat1.getRetransmisiones() != estado2.sat1.getRetransmisiones():
+                    return False
+
+            for i in range(len (self.sat2.getRetransmisiones()) ):
+                if self.sat2.getRetransmisiones() != estado2.sat2.getRetransmisiones():
+                    return False
+
+            if self.getF() < estado2.getF():
+                return False
+
         return True

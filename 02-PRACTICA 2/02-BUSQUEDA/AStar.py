@@ -1,5 +1,8 @@
 # Clase AStar para la practica 2 parte 2
 
+from os import close
+
+from numpy.lib.function_base import append
 from estado import estado
 from satelite import satelite
 
@@ -7,7 +10,6 @@ import numpy as np
 
 import sys
 import time
-
 
 def crearNodos(currentState, openListActual):
     # Obtengo la hora del nodo actual
@@ -43,12 +45,12 @@ def crearNodos(currentState, openListActual):
 
     # Obtengo la nueva hora que tiene que tener el siguiente nodo
     nuevaHora = nuevaHora + 1
-    coste = currentState.getG()+1
+    costeTotal = currentState.getG() + 1
     # En el caso de que llegue a 12
     if(nuevaHora == 12):
         # Reseteo la hora a 0
         nuevaHora = 0
-        coste = coste + 11
+        costeTotal = costeTotal + 11
 
     # Ahora voy a crear los nuevos estados
     listaAbiertaNuevos = []
@@ -56,7 +58,7 @@ def crearNodos(currentState, openListActual):
     for satelite1 in listaSat1:
         for satelite2 in listaSat2:
             # TODO CREAR UNA MATRIZ TOTAL CON LAS COSAS DE AMBAS
-            nextState = estado(currentState, nuevaHora, satelite1, satelite2, coste)# Creo el estado
+            nextState = estado(currentState, nuevaHora, satelite1, satelite2, costeTotal)# Creo el estado
             nextState.evaluarh1() # Evaluo la heuristica
             nextState.setEvaluacion() # Añado la funcion heuristica
             listaAbiertaNuevos.append(nextState) # Inserto el nodo en una lista auxiliar
@@ -125,10 +127,10 @@ def girar(currentState, sat, listaSat, idSat):
             bandasNuevas[0] = bandasNuevas[0]
             bandasNuevas[1] = bandasNuevas[1]
 
-            print('SAT', sat.getId(), ' gira a ', bandasNuevas)
+            #print('SAT', sat.getId(), ' gira a ', bandasNuevas)
 
             # Creo el satelite y lo añado a la lista de satelites
-            satNuevo = satelite(idSat+1, (sat.getEnergiaDisponible() - costeGiro[idSat]), bandasNuevas, sat.getRetransmisiones(), "Girar")
+            satNuevo = satelite(idSat+1, (sat.getEnergiaDisponible() - costeGiro[idSat]), bandasNuevas, sat.getMatrizObservable(), sat.getRetransmisiones(), "Girar")
             listaSat.append(satNuevo) # Add el satelite a la lista de satelites
 
 
@@ -167,7 +169,7 @@ def recargar(sat, listaSat, idSat):
         # Si la bateria cargada es mayor que la capacidad
         if carga >= totalBateria:
             carga = totalBateria# Lo igualo a la capacidad
-        print('SAT',sat.idSat,' ha recargado bateria')
+        #print('SAT',sat.idSat,' ha recargado bateria')
 
         # Creo el satelite y lo añado a la lista de satelites
         satNuevo = satelite(idSat + 1, carga, sat.getBandasActuales(), sat.getMatrizObservable(),sat.getRetransmisiones(), "Recargar")
@@ -219,7 +221,11 @@ def observar(hora, sat, listaSat, idSat):
             satNuevo = satelite(idSat, costeEnergia, bActual, matrizNueva, listaObs, "Observar")
             listaSat.append(satNuevo) # Add el satelite a la lista de satelites
 
-
+def igualNodo(actualNode, closeList):
+    for nodo in closeList:
+        if actualNode.compare(nodo,1):
+                return True
+    return False
 
 """---------------------------------------------------------------------------------------------------------------"""
 
@@ -351,42 +357,43 @@ openList.append(estadoIncial)
 
 # Estado actual que va viendo cada
 estadoActual = None
-i=0
 #while(len(openList) != 0):
-while i < 10:
+while len(openList) != 0:
     
     estadoActual = openList.pop(0)
-    i = i+1
     print ("hora", estadoActual.getHoraActual(), estadoActual.getSat1().getOperacion())
     print (estadoActual.getSat1().getEnergiaDisponible(), "\n")
     #print (estadoActual.getH())
     #print (estadoActual.getSat1().getMatrizObservable(),"\n")
-    
+
     # TODO verificar si el nodo es igual a otro con menor coste que el generado, de no ser igual, se añade a la lista cerrada
 
-    closeList.append(estadoActual)
-
     # FIXME ESTO TIENE QUE SER COMPARADO CON UNA FUNCION DE COMPARE PARA LOS PARAMETROS QUE SEAN NECESARIOS
-    """if(estadoActual.compare(estadoFinal)):
-        
-        # Fin del problema
-        estadoFinal = estadoActual
-        isFound = True
-        break"""
-        
-    crearNodos(estadoActual, openList )
+    if igualNodo(estadoActual, closeList) == False:
+        closeList.append(estadoActual)
+        if(estadoActual.compare(estadoFinal,0)):
+            # Fin del problema
+            estadoFinal = estadoActual
+            isFound = True
+            break
+        crearNodos(estadoActual, openList)
 
-"""
-for i in closeList:
-    print (i.getSat1().getMatrizObservable())"""
-
-""" TODO 
-def checkNode(node):
-    for i in closeList:
-        if(compare(i,node)):
-"""
 
 finAlgoritmo = time.time()
+
+if isFound == False:
+    print("ERROR")
+
+noTengoPadre = True
+
+actualNode = estadoFinal
+
+while noTengoPadre != False:
+    print ("Hora ", actualNode.horaActual, "Satelite 1"," Operacion", actualNode.sat1.getOperacion(), " \n"," Heuristica", actualNode.getH(),"Coste: ", actualNode.getG(),"\n", actualNode.sat1.getMatrizObservable())
+    if actualNode.getnodoPadre() == None:
+        break
+    else:
+        actualNode = actualNode.getnodoPadre()
 
 
 tiempoEjecucionAlgoritmo = finAlgoritmo - inicioAlgoritmo
@@ -407,3 +414,5 @@ f.write(longPlan)
 f.write(expandedNodes)
 
 f.close()
+
+
