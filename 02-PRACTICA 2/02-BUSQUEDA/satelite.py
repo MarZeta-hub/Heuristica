@@ -21,7 +21,6 @@ class satelite():
     def __init__(self, idSat, energiaDisponible, bandaOrigen, retransmisiones, operacion):
         self.idSat = idSat
         self.energiaDisponible = energiaDisponible
-        self.bandaOrigen = bandaOrigen
         self.bandasActuales = [bandaOrigen[0], bandaOrigen[1]]
         self.retransmisiones = retransmisiones
         self.operacion = operacion

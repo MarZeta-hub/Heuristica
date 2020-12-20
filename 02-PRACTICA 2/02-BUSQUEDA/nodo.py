@@ -1,87 +1,39 @@
-# Clase estado para la practica 2 parte 2
+ 
 
-from numpy.core import getlimits
-from satelite import satelite
+class nodo():
 
-
-class estado():
-
-    # Nodo del arbol padre (Para recorrerlo inversamente)
-    nodoPadre = None
+    # Nodo padre del nodo actual
+    nodoRaiz = None
 
     # Hora actual en la que se encuentra el estado
     horaActual = 0
 
     # Matriz de observables
-    matrizObservable = None
+    matrizObservables = None
 
-    # Datos del satelite 1
+    # Datos del Satelite 1
     sat1 = None
 
-    # Datos del satelite 2
+    # Datos del Satelite 2
     sat2 = None
 
+    # Valor de la heuristica
+    heuristica = None
+
+    # Valor del coste
+    coste = None
+
     # Valor de la funcion heuristica
-    h = None
+    f = 0
 
-    # Valor de la funcion de coste utilizada
-    g = None
-
-    # Valor de la funcion de evaluacion f = g + h
-    f = None
-
-    # Funcion constructor
-    def __init__(self, nodoPadre ,horaActual, matrizObservable, sat1, sat2, coste):
-        self.nodoPadre = nodoPadre
-        self.horaActual = horaActual
-        self.matrizObservable = matrizObservable
+    def __init__(self, nodoRaiz, matrizObservables, sat1, sat2, hora, coste):
+        self.matrizObservables = matrizObservables
         self.sat1 = sat1
         self.sat2 = sat2
-        self.g = coste
-
-
-    # A partir de aquí se implementan los getters y setters
-
-    def getnodoPadre(self):
-        return self.nodoPadre
-
-    def setnodoPadre(self, nodoPadre):
-        self.nodoPadre = nodoPadre
-
-    def getHoraActual(self):
-        return self.horaActual
-
-    def setHoraActual(self, horaActual):
-        self.horaActual = horaActual
-
-    def getG(self):
-        return self.g
-    
-    def setG(self, g):
-        self.g = g
-
-    def getH(self):
-        return self.h
-
-    def setEvaluacion(self):
-        self.setF(self.getG() + self.getH())
-
-    def setH(self, h):
-        self.h = h
-
-    def getF(self):
-        return self.f
-    
-    def setF(self, f):
-        self.f = f
-
-    def getSat1(self):
-        return self.sat1
-
-    def getSat2(self):
-        return self.sat2
-
- # Creamos las funciones heuristicas 
+        self.nodoRaiz = nodoRaiz
+        self.horaActual = hora
+        self.coste = coste
+        
     def evaluarh1(self):
         # Sumamos todos los observables que estan por observar 
         totalObsevables = 0
@@ -99,8 +51,6 @@ class estado():
 
         valorh1 = totalObsevables + ntrsat1 + ntrsat2
         self.setH(valorh1)
-
-
 
     def evaluarh2(self):
         hora = self.horaActual
@@ -122,7 +72,6 @@ class estado():
             diferencias = diferencias + porRetransmitir
         
         self.setH(diferencias)
-
 
     def compare(self, estado2, modo):
         for i in range(len(self.matrizObservable)):
