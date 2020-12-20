@@ -41,8 +41,10 @@ def crearNodos(currentState, openListActual):
     idle(sat2, listaSat2, 2)
 
     # Para crear satelites que tienen que observar
-    observar(nuevaHora, sat1, listaSat1, 1, matrizObservables)
-    observar(nuevaHora, sat2, listaSat2, 2, matrizObservables)
+    matrizObservables1 = matrizObservables.copy()
+    observar(nuevaHora, sat1, listaSat1, 1, matrizObservables1)
+    matrizObservables2 = matrizObservables.copy()
+    observar(nuevaHora, sat2, listaSat2, 2, matrizObservables2)
 
     # Obtengo la nueva hora que tiene que tener el siguiente nodo
     nuevaHora = nuevaHora + 1
@@ -55,10 +57,20 @@ def crearNodos(currentState, openListActual):
 
     # Ahora voy a crear los nuevos estados
     listaAbiertaNuevos = []
+    matrizFinal = matrizObservables
     # Un estado se compone  de dos satelites
     for satelite1 in listaSat1:
+        if satelite1.getOperacion() == "Observar":
+            matrizFinal = matrizObservables1
+        else:
+            matrizFinal = matrizObservables
         for satelite2 in listaSat2:
-            nextState = estado(currentState, nuevaHora, matrizObservables, satelite1, satelite2, costeTotal)# Creo el estado
+            if satelite2.getOperacion() == "Observar":
+                if satelite1.getOperacion() == "Observar":
+                   print("no puedes")
+                else:
+                    matrizFinal = matrizObservables2
+            nextState = estado(currentState, nuevaHora, matrizFinal, satelite1, satelite2, costeTotal)# Creo el estado
             nextState.evaluarh1() # Evaluo la heuristica
             nextState.setEvaluacion() # Añado la funcion heuristica
             listaAbiertaNuevos.append(nextState) # Inserto el nodo en una lista auxiliar
@@ -181,12 +193,11 @@ def observar(hora, sat, listaSat, idSat, matrizObservables):
         if matrizObservables[bActual[0]][hora] != 0:
 
             # Obtengo copias tanto de la lista de observables como la de transmisiones
-            matrizNueva = matrizObservables.copy()
             listaObs = sat.getRetransmisiones().copy()
 
             #Añado el dato a la lista de transmisiones y lo elimino de la de observables
-            nuevoDato = 'O'+str(matrizNueva[bActual[0]][hora])
-            matrizNueva[bActual[0]][hora] = 0
+            nuevoDato = 'O'+str(matrizObservables[bActual[0]][hora])
+            matrizObservables[bActual[0]][hora] = 0
             listaObs.append(nuevoDato)
 
             #print('SAT', sat.getId(), ' observa ', nuevoDato)
@@ -196,15 +207,14 @@ def observar(hora, sat, listaSat, idSat, matrizObservables):
             listaSat.append(satNuevo) # Add el satelite a la lista de satelites
         
         # Si la celda es distinto de 0
-        if matrizObservables[bActual[1]][hora] != 0:
+        elif matrizObservables[bActual[1]][hora] != 0:
 
             # Obtengo copias tanto de la lista de observables como la de transmisiones
-            matrizNueva = matrizObservables.copy()
             listaObs = sat.getRetransmisiones().copy()
 
             #Añado el dato a la lista de transmisiones y lo elimino de la de observables
-            nuevoDato = 'O'+str(matrizNueva[bActual[1]][hora])
-            matrizNueva[bActual[1]][hora] = 0
+            nuevoDato = 'O'+str(matrizObservables[bActual[1]][hora])
+            matrizObservables[bActual[1]][hora] = 0
             listaObs.append(nuevoDato)
             #print('SAT', sat.getId(), ' observa ', nuevoDato)
 
@@ -220,67 +230,88 @@ def igualNodo(actualNode, closeList):
 
 """---------------------------------------------------------------------------------------------------------------"""
 
-# Entrada de fichero
-f = open('problema.prob')
+def lecturaFichero ():
+    # Entrada de fichero
+    f = open('problema.prob')
 
-# Obtenemos los observadores
-inicio = f.read(5)
+    # Obtenemos los observadores
+    inicio = f.read(5)
 
-inicio = inicio[:3]
+    inicio = inicio[:3]
 
-# Caso de error fallo de formato fichero de entrada
-if(inicio != 'OBS'):
-    raise Exception('Error, formato fichero de entrada incorrecto')
+    # Caso de error fallo de formato fichero de entrada
+    if(inicio != 'OBS'):
+        raise Exception('Error, formato fichero de entrada incorrecto')
 
-# Saltamos la cabecera de la primera linea de OBS y separamos por coordenadasS
-# f.seek(5)
-OBS = f.readline().split(';')
+    # Saltamos la cabecera de la primera linea de OBS y separamos por coordenadasS
+    # f.seek(5)
+    OBS = f.readline().split(';')
 
-# Objetos es la lista de listas de numeros enteros que se corresponden con las coordenadas de los objetos visibles
-objetos = []
-for i in OBS:
-    lista = []
-    a = i.replace(')', '').replace('(', '').split(',')
-    lista.append(int(a[0]))
-    lista.append(int(a[1]))
+    # Objetos es la lista de listas de numeros enteros que se corresponden con las coordenadas de los objetos visibles
+    objetos = []
+    for i in OBS:
+        lista = []
+        a = i.replace(')', '').replace('(', '').split(',')
+        lista.append(int(a[0]))
+        lista.append(int(a[1]))
+        objetos.append(lista)
 
-    objetos.append(lista)
+    # Lista donde se van a guardar las caracteristicas de los satelites
+    satelites = []
 
-print(objetos)
+    # Sacamos los satelites que existen del fichero con sus caracteristicas con el formato: [id, [Caracteristicas]]
+    contador = 1
+    for reader in f:
+        sat = []
+        a = reader.split(' ')
+        sat.append(contador)
 
-# Obtencion de las caracteristicas de cada uno de los satelites
+        # Separamos por ; para obtener los parametros
+        b = a[1].split(';')
+        # Realizamos una conversion a numeros enteros
+        c = []
+        for j in b:
+            c.append(int(j))
+        sat.append(c)
 
-# Lista donde se van a guardar las caracteristicas de los satelites
-satelites = []
+        satelites.append(sat)
+        contador = contador+1
+    f.close()
+    return satelites, objetos
 
-# Sacamos los satelites que existen del fichero con sus caracteristicas con el formato: [id, [Caracteristicas]]
-contador = 1
-for reader in f:
-    sat = []
-    a = reader.split(' ')
 
-    sat.append(contador)
+def escribirFichero():
+    # Salida del fichero de estadisticas
 
-    # Separamos por ; para obtener los parametros
-    b = a[1].split(';')
-    # Realizamos una conversion a numeros enteros
-    c = []
-    for j in b:
-        c.append(int(j))
+    f = open("problema.prob.statistics", "w")
 
-    sat.append(c)
+    time = "Tiempo total: %f \n" % tiempoEjecucionAlgoritmo
+    totalcost = "Coste total: %i \n" % costeTotal
+    longPlan = "Longitud del plan: %i \n" % LongitudPlan
+    expandedNodes = "Nodos expandidos: %i \n" % nodosExpandidos
 
-    satelites.append(sat)
-    contador = contador+1
+    f.write(time)
+    f.write(totalcost)
+    f.write(longPlan)
+    f.write(expandedNodes)
 
-print(satelites)
+    f.close()
 
-f.close()
 
+
+
+
+
+
+
+
+"""------------------------ MAIN PROGRAMA -----------------------"""
+
+satelites, objetos = lecturaFichero()
 # Variables globales para las estadisticas
 nodosExpandidos = 0
 costeTotal = 0
-LongitudPlan = 0  # FIXME ESTO ES LA PROFUNDIDAD DEL ARBOL??
+LongitudPlan = 0 
 
 # --Creamos Los Satélites--
 # Crear las variables
@@ -290,6 +321,7 @@ costeTransmision = []
 costeGiro = []
 udsRecarga = []
 capacidadBateria = []
+
 # Crear Transmisiones
 transmisiones1 = []
 transmisiones2 = []
@@ -320,43 +352,23 @@ sat2 = satelite(satelites[1][0], capacidadBateria[1], bandaOrigen[1], transmisio
 
 # Crear estado Inicial y Final
 estadoIncial = estado(None, 0, obsInicial, sat1, sat2, 0)
+estadoIncial.evaluarh1()
+estadoIncial.setEvaluacion()
 estadoFinal = estado(None, 0, obsFinal, sat1, sat2, 0)
-
 
 isFound = False  # Si es solucion
 openList = []  # Estados que faltan por analizar
 closeList = []  # Estados ya analizados
 
-# CALCULAR HEURISTICA INICIAL Y FINAL
+openList.append(estadoIncial)
+crearNodos(estadoIncial, openList)
+estadoActual = None
 
-# Algoritmo A* implementado
-
-
+# INICIA EL ALGORITMO 
 inicioAlgoritmo = time.time()
 
-
-# Aqui se elige la heuristica que se va a utilizar
-estadoIncial.evaluarh1()
-estadoIncial.setEvaluacion()
-
-openList.append(estadoIncial)
-
-# Estado actual que va viendo cada
-estadoActual = None
 while len(openList) != 0:
-    
     estadoActual = openList.pop(0)
-    print ("hora", estadoActual.getHoraActual(), "Sat1",estadoActual.getSat1().getOperacion())
-    print ("hora", estadoActual.getHoraActual(), "Sat2",estadoActual.getSat2().getOperacion())
-    #print (estadoActual.getSat1().getEnergiaDisponible(), "\n")
-    #print (estadoActual.getH())
-    print (estadoActual.matrizObservable,"\n")
-    print (estadoActual.matrizObservable,"\n")
-    print ("-------------------------------------------\n")
-
-    # TODO verificar si el nodo es igual a otro con menor coste que el generado, de no ser igual, se añade a la lista cerrada
-
-    # FIXME ESTO TIENE QUE SER COMPARADO CON UNA FUNCION DE COMPARE PARA LOS PARAMETROS QUE SEAN NECESARIOS
     if igualNodo(estadoActual, closeList) == False:
         closeList.append(estadoActual)
         if(estadoActual.compare(estadoFinal,0)):
@@ -366,41 +378,24 @@ while len(openList) != 0:
             break
         crearNodos(estadoActual, openList)
 
-
 finAlgoritmo = time.time()
+# FIN DEL ALGORITMO
 
-if isFound == False:
+# En caso de que no se haya encontrado solucion
+if isFound == False: 
     print("ERROR")
 
-noTengoPadre = True
-
-actualNode = estadoFinal
+noTengoPadre = True # Mientras tenga padre
+actualNode = estadoFinal # Empiezo en el nodo final
 
 while noTengoPadre != False:
-    print ("Hora ", actualNode.horaActual, "Satelite 1"," Operacion", actualNode.sat1.getOperacion(), " \n"," Heuristica", actualNode.getH(),"Coste: ", actualNode.getG(),"\n", actualNode.matrizObservable)
+    print ("Hora ", actualNode.horaActual, "Satelite 1"," Operacion", actualNode.sat1.getOperacion(), " \n"," Heuristica", actualNode.getH(),"Coste: ", actualNode.getG())
+    print ("Hora ", actualNode.horaActual, "Satelite 2"," Operacion", actualNode.sat2.getOperacion(), " \n"," Heuristica", actualNode.getH(),"Coste: ", actualNode.getG())
+    print(actualNode.matrizObservable, "\n")
     if actualNode.getnodoPadre() == None:
         break
     else:
         actualNode = actualNode.getnodoPadre()
 
-
 tiempoEjecucionAlgoritmo = finAlgoritmo - inicioAlgoritmo
-
-
-# Salida del fichero de estadisticas
-
-f = open("problema.prob.statistics", "w")
-
-time = "Tiempo total: %f \n" % tiempoEjecucionAlgoritmo
-totalcost = "Coste total: %i \n" % costeTotal
-longPlan = "Longitud del plan: %i \n" % LongitudPlan
-expandedNodes = "Nodos expandidos: %i \n" % nodosExpandidos
-
-f.write(time)
-f.write(totalcost)
-f.write(longPlan)
-f.write(expandedNodes)
-
-f.close()
-
-
+escribirFichero()

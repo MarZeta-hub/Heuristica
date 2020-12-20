@@ -86,29 +86,18 @@ class estado():
         # Sumamos todos los observables que estan por observar 
         totalObsevables = 0
 
-       # self.getObservables()
+        # self.getObservables()
         matrizObservable = self.matrizObservable
         for i in range(len(matrizObservable)):
             for j in range(len(matrizObservable[i])):
                 if matrizObservable[i][j] != 0:
                     totalObsevables = totalObsevables + 1
 
-        # Multiplicamos por 2 los observables para que influya de forma mas negativa en la heuristica
-        totalObsevables = totalObsevables*10
         # Sumamos las transmisiones que tiene pendientes de hacer cada uno de los satelites
         ntrsat1 = len(self.sat1.getRetransmisiones())
         ntrsat2 = len(self.sat2.getRetransmisiones())
 
-        # Añadimos un sistema para perjudicar si esta sin bateria para recargar cuanto antes
-        r1 = 0 
-        r2 = 0
-
-        if(self.sat1.energiaDisponible==0):
-            r1=10
-        if(self.sat2.energiaDisponible==0):
-            r2=10
-
-        valorh1 = totalObsevables + ntrsat1 + ntrsat2 + r1 + r2
+        valorh1 = totalObsevables + ntrsat1 + ntrsat2
         self.setH(valorh1)
 
 
@@ -175,5 +164,5 @@ class estado():
 
             if self.getF() < estado2.getF():
                 return False
-
+                
         return True
