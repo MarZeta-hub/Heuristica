@@ -12,6 +12,9 @@ class estado():
     # Hora actual en la que se encuentra el estado
     horaActual = 0
 
+    # Matriz de observables
+    matrizObservable = None
+
     # Datos del satelite 1
     sat1 = None
 
@@ -28,9 +31,10 @@ class estado():
     f = None
 
     # Funcion constructor
-    def __init__(self, nodoPadre ,horaActual, sat1, sat2, coste):
+    def __init__(self, nodoPadre ,horaActual, matrizObservable, sat1, sat2, coste):
         self.nodoPadre = nodoPadre
         self.horaActual = horaActual
+        self.matrizObservable = matrizObservable
         self.sat1 = sat1
         self.sat2 = sat2
         self.g = coste
@@ -77,13 +81,13 @@ class estado():
     def getSat2(self):
         return self.sat2
 
-    # Creamos las funciones heuristicas 
+ # Creamos las funciones heuristicas 
     def evaluarh1(self):
         # Sumamos todos los observables que estan por observar 
         totalObsevables = 0
 
        # self.getObservables()
-        matrizObservable = self.sat1.getMatrizObservable()
+        matrizObservable = self.matrizObservable
         for i in range(len(matrizObservable)):
             for j in range(len(matrizObservable[i])):
                 if matrizObservable[i][j] != 0:
@@ -91,7 +95,6 @@ class estado():
 
         # Multiplicamos por 2 los observables para que influya de forma mas negativa en la heuristica
         totalObsevables = totalObsevables*10
-        
         # Sumamos las transmisiones que tiene pendientes de hacer cada uno de los satelites
         ntrsat1 = len(self.sat1.getRetransmisiones())
         ntrsat2 = len(self.sat2.getRetransmisiones())
@@ -101,12 +104,13 @@ class estado():
         r2 = 0
 
         if(self.sat1.energiaDisponible==0):
-            r1=5
+            r1=10
         if(self.sat2.energiaDisponible==0):
-            r2=5
+            r2=10
 
         valorh1 = totalObsevables + ntrsat1 + ntrsat2 + r1 + r2
         self.setH(valorh1)
+
 
 
     def evaluarh2(self):
@@ -114,10 +118,10 @@ class estado():
         diferencias = 0
 
         # Si no hay distancias a los objetos observables, quiere decir que no hay
-        for i in range(len(self.sat1.getMatrizObservable())):
-            for j in range(len(self.sat1.getMatrizObservable()[i])):
+        for i in range(len(self.matrizObservable)):
+            for j in range(len(self.matrizObservable[i])):
                 
-                if(self.sat1.getMatrizObservable()[i][j]!=0):
+                if(self.matrizObservable[i][j]!=0):
                     diferencias = diferencias + abs(j-hora)
                     diferencias = diferencias + min(abs(i-self.sat1.bandasActuales[0]),abs(i-self.sat1.bandasActuales[1]))
                     diferencias = diferencias + min(abs(i-self.sat2.bandasActuales[0]),abs(i-self.sat2.bandasActuales[1]))
@@ -132,9 +136,9 @@ class estado():
 
 
     def compare(self, estado2, modo):
-        for i in range(len(self.sat1.getMatrizObservable())):
-            for j in range(len(self.sat1.getMatrizObservable()[i])):
-                if self.sat1.getMatrizObservable()[i][j] != estado2.sat1.getMatrizObservable()[i][j]:
+        for i in range(len(self.matrizObservable)):
+            for j in range(len(self.matrizObservable[i])):
+                if self.matrizObservable[i][j] != estado2.matrizObservable[i][j]:
                     return False
 
         if len(self.sat1.getRetransmisiones() ) != len(estado2.sat1.getRetransmisiones() ):
@@ -144,14 +148,16 @@ class estado():
             return False
 
         if modo == 1:
-            if self.getHoraActual() != estado2.getHoraActual():
-                return False
 
-            if self.sat1.getBandasActuales() != estado2.sat1.getBandasActuales():
+            """if self.getHoraActual() != estado2.getHoraActual():
+                return False
+            """
+            """if self.sat1.getBandasActuales() != estado2.sat1.getBandasActuales():
                 return False
 
             if self.sat2.getBandasActuales() != estado2.sat2.getBandasActuales():
                 return False
+            """
 
             if self.sat1.getOperacion() != estado2.sat1.getOperacion():
                 return False

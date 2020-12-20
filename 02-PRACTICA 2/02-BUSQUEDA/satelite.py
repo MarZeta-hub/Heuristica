@@ -17,20 +17,15 @@ class satelite():
     # Operacion realizada para conseguir este estado
     operacion = None
 
-    # Matriz de observables
-    matrizObservables = None
-
     # Constructor de satelite
-    def __init__(self, idSat, energiaDisponible, bandaOrigen, matrizObservables, retransmisiones, operacion):
+    def __init__(self, idSat, energiaDisponible, bandaOrigen, retransmisiones, operacion):
         self.idSat = idSat
         self.energiaDisponible = energiaDisponible
         self.bandaOrigen = bandaOrigen
         self.bandasActuales = [bandaOrigen[0], bandaOrigen[1]]
-        self.matrizObservables = matrizObservables
         self.retransmisiones = retransmisiones
         self.operacion = operacion
 
-    
 # Getters y setters necesarios
 
     def getEnergiaDisponible(self):
@@ -59,9 +54,3 @@ class satelite():
 
     def getId(self):
         return self.idSat
-
-    def getMatrizObservable(self):
-        return self.matrizObservables
-
-    def setMatrizObservable(self, matrizObservable):
-        self.matrizObservables = matrizObservable
