@@ -39,18 +39,18 @@ class nodo():
         totalObsevables = 0
 
         # self.getObservables()
-        matrizObservable = self.matrizObservable
+        matrizObservable = self.matrizObservables
         for i in range(len(matrizObservable)):
             for j in range(len(matrizObservable[i])):
                 if matrizObservable[i][j] != 0:
                     totalObsevables = totalObsevables + 1
 
         # Sumamos las transmisiones que tiene pendientes de hacer cada uno de los satelites
-        ntrsat1 = len(self.sat1.getRetransmisiones())
-        ntrsat2 = len(self.sat2.getRetransmisiones())
+        ntrsat1 = len(self.sat1.retransmisiones)*2
+        ntrsat2 = len(self.sat2.retransmisiones)*2
 
-        valorh1 = totalObsevables + ntrsat1 + ntrsat2
-        self.setH(valorh1)
+        valorh1 = totalObsevables*4 + ntrsat1 + ntrsat2
+        self.heuristica= valorh1
 
     def evaluarh2(self):
         hora = self.horaActual
@@ -66,52 +66,50 @@ class nodo():
                     diferencias = diferencias + min(abs(i-self.sat2.bandasActuales[0]),abs(i-self.sat2.bandasActuales[1]))
         
         # Lo siguiente es comprobar si los objetos han sido retransmitidos 
-        porRetransmitir = len(self.sat1.getRetransmisiones()) + len(self.sat2.getRetransmisiones()) 
+        porRetransmitir = len(self.sat1.retransmisiones) + len(self.sat2.retransmisiones) 
 
         if(porRetransmitir>0):
             diferencias = diferencias + porRetransmitir
         
         self.setH(diferencias)
 
-    def compare(self, estado2, modo):
-        for i in range(len(self.matrizObservable)):
-            for j in range(len(self.matrizObservable[i])):
-                if self.matrizObservable[i][j] != estado2.matrizObservable[i][j]:
+    def compare(self, estado2):
+
+        for i in range(len(self.matrizObservables)):
+            for j in range(len(self.matrizObservables[i])):
+                if self.matrizObservables[i][j] != estado2.matrizObservables[i][j]:
                     return False
 
-        if len(self.sat1.getRetransmisiones() ) != len(estado2.sat1.getRetransmisiones() ):
+        if len(self.sat1.retransmisiones ) != len(estado2.sat1.retransmisiones ):
             return False
 
-        if len(self.sat2.getRetransmisiones() ) != len(estado2.sat2.getRetransmisiones() ):
+        if len(self.sat2.retransmisiones ) != len(estado2.sat2.retransmisiones ):
             return False
 
-        if modo == 1:
+        if self.horaActual != estado2.horaActual:
+            return False
+      
+        if self.sat1.bandasActuales != estado2.sat1.bandasActuales:
+            return False
 
-            """if self.getHoraActual() != estado2.getHoraActual():
+        if self.sat2.bandasActuales != estado2.sat2.bandasActuales:
+            return False
+        
+        if self.sat1.operacion != estado2.sat1.operacion :
+            return False
+
+        if self.sat2.operacion  != estado2.sat2.operacion :
+            return False
+        
+        for i in range(len (self.sat1.retransmisiones) ):
+            if self.sat1.retransmisiones != estado2.sat1.retransmisiones:
                 return False
-            """
-            """if self.sat1.getBandasActuales() != estado2.sat1.getBandasActuales():
+
+        for i in range(len (self.sat2.retransmisiones) ):
+            if self.sat2.retransmisiones != estado2.sat2.retransmisiones:
                 return False
-
-            if self.sat2.getBandasActuales() != estado2.sat2.getBandasActuales():
-                return False
-            """
-
-            if self.sat1.getOperacion() != estado2.sat1.getOperacion():
-                return False
-
-            if self.sat2.getOperacion() != estado2.sat2.getOperacion():
-                return False
-
-            for i in range(len (self.sat1.getRetransmisiones()) ):
-                if self.sat1.getRetransmisiones() != estado2.sat1.getRetransmisiones():
-                    return False
-
-            for i in range(len (self.sat2.getRetransmisiones()) ):
-                if self.sat2.getRetransmisiones() != estado2.sat2.getRetransmisiones():
-                    return False
-
-            if self.getF() < estado2.getF():
-                return False
+        
+        if self.f < estado2.f:
+            return False
                 
         return True

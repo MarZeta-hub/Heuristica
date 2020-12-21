@@ -86,18 +86,13 @@ def main():
     satelites, objetos = lecturaFichero()
 
     # Valores estáticos de los satelites
-    datosEnergia = [[0,0,0,0,0], [0,0,0,0,0]]
+    datosEnergia = [[], []]
     for i in range(len(satelites)):
         datosEnergia[i].append(satelites[i][1][0]) # Observar
         datosEnergia[i].append(satelites[i][1][1]) # Transmitir
         datosEnergia[i].append(satelites[i][1][2]) # Girar
         datosEnergia[i].append(satelites[i][1][3]) # Uds nuevas de Energia
         datosEnergia[i].append(satelites[i][1][4]) # Total capacidad Bateria
-
-
-    # Crear Satelites y 
-    sat1 = satelite(0, datosEnergia[0][4], [0, 1], [], "idle")
-    sat2 = satelite(1, datosEnergia[1][4], [2, 3], [], "idle")
 
     # --Creamos los estados Inical y Final --
     nBandas = 4  # Bandas que existen en el problema
@@ -109,6 +104,10 @@ def main():
     # Añadir observables a la matriz de observables
     for i in range(len(objetos)):
         obsInicial[objetos[i][0]][objetos[i][1]] = i + 1
+
+        # Crear Satelites y 
+    sat1 = satelite(0, datosEnergia[0][4], [0, 1], [], "idle", obsInicial)
+    sat2 = satelite(1, datosEnergia[1][4], [2, 3], [], "idle", obsInicial)
 
     # Crear estado Inicial
     nodoIncial = nodo(None, obsInicial, sat1, sat2, 0,0)
@@ -124,17 +123,17 @@ def main():
     finAlgoritmo = time.time()
     # FINALIZA EL ALGORITMO
     
-    noTengoPadre = False
+    noTengoPadre = True
     actualNode = aEstrella.nodoFinal
     while noTengoPadre != False:
-        print ("Hora ", actualNode.horaActual, "Satelite 1"," Operacion", actualNode.sat1.getOperacion(), " \n"," Heuristica", actualNode.getH(),"Coste: ", actualNode.getG())
-        print ("Hora ", actualNode.horaActual, "Satelite 2"," Operacion", actualNode.sat2.getOperacion(), " \n"," Heuristica", actualNode.getH(),"Coste: ", actualNode.getG())
-        print(actualNode.matrizObservable, "\n")
-        if actualNode.getnodoPadre() == None:
+        print ("Hora ", actualNode.horaActual, "Satelite 1"," Operacion", actualNode.sat1.operacion, " \n"," Heuristica", actualNode.heuristica,"Coste: ", actualNode.coste, "\n Retransmisiones", actualNode.sat1.retransmisiones)
+        print ("Hora ", actualNode.horaActual, "Satelite 2"," Operacion", actualNode.sat2.operacion, " \n"," Heuristica", actualNode.heuristica,"Coste: ", actualNode.coste)
+        print(actualNode.matrizObservables, "\n")
+        if actualNode.nodoRaiz == None:
             break
         else:
-            actualNode = actualNode.getnodoPadre()
-
+            actualNode = actualNode.nodoRaiz
+    
     tiempoEjecucionAlgoritmo = finAlgoritmo - inicioAlgoritmo
     escribirFichero(tiempoEjecucionAlgoritmo, aEstrella.costeTotal, 0,aEstrella.nodosExpandidos)
 
