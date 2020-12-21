@@ -2,9 +2,6 @@ from nodo import nodo
 from satelite import satelite
 
 
-
-
-
 class aStar():
 
     # Estado del cual partir
