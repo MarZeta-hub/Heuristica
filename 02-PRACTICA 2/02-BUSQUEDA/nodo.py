@@ -18,7 +18,7 @@ class nodo():
     sat2 = None
 
     # Valor de la heuristica
-    heuristica = None
+    heuristica = 0
 
     # Valor del coste
     coste = None
@@ -26,13 +26,17 @@ class nodo():
     # Valor de la funcion heuristica
     f = 0
 
-    def __init__(self, nodoRaiz, matrizObservables, sat1, sat2, hora, coste):
+    # Acciones
+    acciones = None
+
+    def __init__(self, nodoRaiz, matrizObservables, sat1, sat2, hora, coste, acciones):
         self.matrizObservables = matrizObservables
         self.sat1 = sat1
         self.sat2 = sat2
         self.nodoRaiz = nodoRaiz
         self.horaActual = hora
         self.coste = coste
+        self.acciones = acciones
         
     def evaluarh1(self):
         # Sumamos todos los observables que estan por observar 
@@ -46,11 +50,14 @@ class nodo():
                     totalObsevables = totalObsevables + 1
 
         # Sumamos las transmisiones que tiene pendientes de hacer cada uno de los satelites
-        ntrsat1 = len(self.sat1.retransmisiones)*2
-        ntrsat2 = len(self.sat2.retransmisiones)*2
+        ntrsat1 = len(self.sat1.retransmisiones)
+        ntrsat2 = len(self.sat2.retransmisiones)
 
-        valorh1 = totalObsevables*4 + ntrsat1 + ntrsat2
+        valorh1 = totalObsevables*10 + ntrsat1*5 + ntrsat2*5
         self.heuristica= valorh1
+
+    def evaluar(self):
+        self.f = self.heuristica + self.coste
 
     def evaluarh2(self):
         hora = self.horaActual
@@ -94,13 +101,13 @@ class nodo():
 
         if self.sat2.bandasActuales != estado2.sat2.bandasActuales:
             return False
-        
+        """
         if self.sat1.operacion != estado2.sat1.operacion :
             return False
 
         if self.sat2.operacion  != estado2.sat2.operacion :
             return False
-        
+        """
         for i in range(len (self.sat1.retransmisiones) ):
             if self.sat1.retransmisiones != estado2.sat1.retransmisiones:
                 return False
@@ -109,7 +116,4 @@ class nodo():
             if self.sat2.retransmisiones != estado2.sat2.retransmisiones:
                 return False
         
-        if self.f < estado2.f:
-            return False
-                
         return True

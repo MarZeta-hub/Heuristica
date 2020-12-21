@@ -110,11 +110,13 @@ def main():
     sat2 = satelite(1, datosEnergia[1][4], [2, 3], [], "idle", obsInicial)
 
     # Crear estado Inicial
-    nodoIncial = nodo(None, obsInicial, sat1, sat2, 0,0)
-
+    nodoIncial = nodo(None, obsInicial, sat1, sat2, 0, 0, None)
+    nodoIncial.evaluarh1()
+    nodoIncial.evaluar()
     # Creo el nuevo A estrella
     aEstrella = aStar(nodoIncial,  datosEnergia)
 
+    aEstrella.crearNodos(nodoIncial)
     # INICIA EL ALGORITMO 
     inicioAlgoritmo = time.time()
 
@@ -122,18 +124,16 @@ def main():
 
     finAlgoritmo = time.time()
     # FINALIZA EL ALGORITMO
-    
+
     noTengoPadre = True
     actualNode = aEstrella.nodoFinal
     while noTengoPadre != False:
-        print ("Hora ", actualNode.horaActual, "Satelite 1"," Operacion", actualNode.sat1.operacion, " \n"," Heuristica", actualNode.heuristica,"Coste: ", actualNode.coste, "\n Retransmisiones", actualNode.sat1.retransmisiones)
-        print ("Hora ", actualNode.horaActual, "Satelite 2"," Operacion", actualNode.sat2.operacion, " \n"," Heuristica", actualNode.heuristica,"Coste: ", actualNode.coste)
-        print(actualNode.matrizObservables, "\n")
+        aEstrella.printEstado(actualNode)
         if actualNode.nodoRaiz == None:
             break
         else:
             actualNode = actualNode.nodoRaiz
-    
+
     tiempoEjecucionAlgoritmo = finAlgoritmo - inicioAlgoritmo
     escribirFichero(tiempoEjecucionAlgoritmo, aEstrella.costeTotal, 0,aEstrella.nodosExpandidos)
 
