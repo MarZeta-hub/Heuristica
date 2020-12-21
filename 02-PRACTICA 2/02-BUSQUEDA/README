@@ -1,0 +1,8 @@
+NOTA:
+
+Al ejecutar el ./Cosmos.sh problema.prob 1
+
+hay que darle permisos con chmod 777 
+el primer argumento $1 es el nombre del problema
+y el segundo $2 se trata de la heuristica que se quiere usar, puede ser la 0, 1 o la 2
+(0 es nada)
