@@ -154,6 +154,14 @@ def main():
         salidaInfo = salidaInfo+str(nodoActual.coste)+". SAT 1 "+nodoActual.sat1.operacion+" "+nodoActual.sat1.objeto+", SAT 2 "+nodoActual.sat2.operacion+" "+nodoActual.sat2.objeto+"\n"
 
     print (salidaInfo)
+    
+    f = open("problema.prob.output", "w")
+
+    f.write(salidaInfo)
+
+    f.close()
+
+
     tiempoEjecucionAlgoritmo = finAlgoritmo - inicioAlgoritmo
     escribirFichero(tiempoEjecucionAlgoritmo, aEstrella.costeTotal, aEstrella.profunidad, aEstrella.nodosExpandidos)
 
