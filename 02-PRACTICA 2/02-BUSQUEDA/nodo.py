@@ -64,10 +64,10 @@ class nodo():
         diferencias = 0
 
         # Si no hay distancias a los objetos observables, quiere decir que no hay
-        for i in range(len(self.matrizObservable)):
-            for j in range(len(self.matrizObservable[i])):
+        for i in range(len(self.matrizObservables)):
+            for j in range(len(self.matrizObservables[i])):
                 
-                if(self.matrizObservable[i][j]!=0):
+                if(self.matrizObservables[i][j]!=0):
                     diferencias = diferencias + abs(j-hora)
                     diferencias = diferencias + min(abs(i-self.sat1.bandasActuales[0]),abs(i-self.sat1.bandasActuales[1]))
                     diferencias = diferencias + min(abs(i-self.sat2.bandasActuales[0]),abs(i-self.sat2.bandasActuales[1]))
@@ -78,7 +78,7 @@ class nodo():
         if(porRetransmitir>0):
             diferencias = diferencias + porRetransmitir
         
-        self.setH(diferencias)
+        #self.setH(diferencias)
 
     def compare(self, estado2):
 

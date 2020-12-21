@@ -1,6 +1,10 @@
 from nodo import nodo
 from satelite import satelite
 
+
+
+
+
 class aStar():
 
     # Estado del cual partir
@@ -15,7 +19,7 @@ class aStar():
     closeList = []
 
     # Para escoger la heuristica para resolver el poblema
-    elegirHeuristica = None
+    heuristicaSeleccionada = 0
 
     #Gasto de energia por cada satelite
     gastoEnergia = None
@@ -32,16 +36,16 @@ class aStar():
 
     
     # Constructor
-    def __init__ (self, nodoIncial,  gastoEnergia):
+    def __init__ (self, nodoIncial,  gastoEnergia, heuristicaSeleccionada):
         self.nodoIncial = nodoIncial
         self.gastoEnergia = gastoEnergia
         self.openList = []
         self.costeTotal = []
-        self.elegirHeuristica = None
         self.nodosExpandidos = 0
         self.tiempoAlgoritmo = 0
         self.costeTotal = 0
         self.openList.append(nodoIncial)
+        self.heuristicaSeleccionada = heuristicaSeleccionada
 
     def algoritmo(self):
         isFound = False
@@ -205,7 +209,12 @@ class aStar():
                     if satelite2.operacion == "Observar":
                         matrizFinal = satelite2.matrizObservables
                 nextState = nodo(nodoActual, matrizFinal, satelite1, satelite2, nuevaHora, costeTotal, listaAcciones)# Creo el estado
-                #nextState.evaluarh1(elegirHeuristica) # Evaluo la heuristica
+                
+                if(self.heuristicaSeleccionada==1):
+                    nextState.evaluarh1() # Evaluo la heuristica
+                if(self.heuristicaSeleccionada==2):
+                    nextState.evaluarh2() # Evaluo la heuristica
+
                 nextState.evaluar()
                 listaAbiertaNuevos.append(nextState) # Inserto el nodo en una lista auxiliar
 

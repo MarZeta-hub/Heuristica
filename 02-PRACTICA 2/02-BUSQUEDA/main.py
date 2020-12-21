@@ -12,10 +12,19 @@ from nodo import nodo
 import numpy as np
 import time
 
+import sys
+
+# Obtenemos los ficheros pasados por parametro
+fileName = sys.argv[1]
+heuristicaSeleccionada = int(sys.argv[2])  # 0-> No tiene funcion heuristica; 1-> Funcion heuristica 1 ; 2-> Funcion heuristica 2
+
+# Caso de error de seleccionar una heuristica que no existe
+if(heuristicaSeleccionada<0 or heuristicaSeleccionada>2):
+    raise Exception('Error, se ha seleccionado una heuristica incorrecta')
 
 def lecturaFichero ():
     # Entrada de fichero
-    f = open('problema.prob')
+    f = open(fileName)
 
     # Obtenemos los observadores
     inicio = f.read(5)
@@ -111,10 +120,15 @@ def main():
 
     # Crear estado Inicial
     nodoIncial = nodo(None, obsInicial, sat1, sat2, 0, 0, None)
-    nodoIncial.evaluarh1()
+    
+    if(heuristicaSeleccionada==1):
+        nodoIncial.evaluarh1()
+    elif(heuristicaSeleccionada==2):
+        nodoIncial.evaluarh2()
+
     nodoIncial.evaluar()
     # Creo el nuevo A estrella
-    aEstrella = aStar(nodoIncial,  datosEnergia)
+    aEstrella = aStar(nodoIncial,  datosEnergia, heuristicaSeleccionada)
 
     aEstrella.crearNodos(nodoIncial)
     # INICIA EL ALGORITMO 
