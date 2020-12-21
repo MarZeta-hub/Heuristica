@@ -38,9 +38,12 @@ class nodo():
         self.coste = coste
         self.acciones = acciones
         
+
+    # Funcion heuristica 1    
     def evaluarh1(self):
         # Sumamos todos los observables que estan por observar 
         totalObsevables = 0
+
 
         # self.getObservables()
         matrizObservable = self.matrizObservables
@@ -56,13 +59,18 @@ class nodo():
         valorh1 = totalObsevables*10 + ntrsat1*5 + ntrsat2*5
         self.heuristica= valorh1
 
+    # Funcion de evaluacion
     def evaluar(self):
         self.f = self.heuristica + self.coste
 
+
+    # Funcion heuristica 2
     def evaluarh2(self):
+        valorh2 = 0
+
         hora = self.horaActual
         diferencias = 0
-
+        
         # Si no hay distancias a los objetos observables, quiere decir que no hay
         for i in range(len(self.matrizObservables)):
             for j in range(len(self.matrizObservables[i])):
@@ -72,13 +80,17 @@ class nodo():
                     diferencias = diferencias + min(abs(i-self.sat1.bandasActuales[0]),abs(i-self.sat1.bandasActuales[1]))
                     diferencias = diferencias + min(abs(i-self.sat2.bandasActuales[0]),abs(i-self.sat2.bandasActuales[1]))
         
+        
         # Lo siguiente es comprobar si los objetos han sido retransmitidos 
         porRetransmitir = len(self.sat1.retransmisiones) + len(self.sat2.retransmisiones) 
 
         if(porRetransmitir>0):
-            diferencias = diferencias + porRetransmitir
-        
-        #self.setH(diferencias)
+            diferencias = diferencias + porRetransmitir 
+
+
+        valorh2 = diferencias 
+        self.heuristica = valorh2
+
 
     def compare(self, estado2):
 
