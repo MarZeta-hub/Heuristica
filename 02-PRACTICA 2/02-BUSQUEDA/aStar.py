@@ -193,13 +193,15 @@ class aStar():
         for satelite1 in listaSat[0]:
             for satelite2 in listaSat[1]:
                 matrizFinal = matrizObservables
-                if satelite1.operacion == "Observar":
-                    matrizFinal = satelite1.matrizObservables
-                if satelite2.operacion == "Observar":
-                    matrizFinal = satelite2.matrizObservables
-                
+                if satelite2.operacion == "Observar" and satelite1.operacion == "Observar":
+                    matrizFinal = self.matrizIgualada(satelite1.matrizObservables, satelite2.matrizObservables)
+                else:
+                    if satelite1.operacion == "Observar":
+                        matrizFinal = satelite1.matrizObservables
+                    if satelite2.operacion == "Observar":
+                        matrizFinal = satelite2.matrizObservables
                 nextState = nodo(nodoActual, matrizFinal, satelite1, satelite2, nuevaHora, costeTotal, listaAcciones)# Creo el estado
-                #nextState.evaluarh1() # Evaluo la heuristica
+                #nextState.evaluarh1(elegirHeuristica) # Evaluo la heuristica
                 nextState.evaluar()
                 listaAbiertaNuevos.append(nextState) # Inserto el nodo en una lista auxiliar
 
@@ -232,6 +234,13 @@ class aStar():
 
         return True
 
+    def matrizIgualada(self, matriz1, matriz2):
+        matrizFinal = matriz1.copy()
+        for i in range(len(matriz1)):
+            for j in range(len(matriz1[i])):
+                if matriz1[i][j] != matriz2[i][j]:
+                    matrizFinal[i][j] = 0
+        return matrizFinal
 
     def printEstado(self, actualNode):
             print ("Satelite 1","BANDAS", actualNode.sat1.bandasActuales," Operacion", actualNode.sat1.operacion, "\n Retransmisiones", actualNode.sat1.retransmisiones)
