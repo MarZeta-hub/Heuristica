@@ -127,14 +127,20 @@ def main():
 
     noTengoPadre = True
     actualNode = aEstrella.nodoFinal
+    listaNodos = []
     while noTengoPadre != False:
+        listaNodos.insert(0, actualNode)
         aEstrella.printEstado(actualNode)
         if actualNode.nodoRaiz == None:
             break
         else:
             actualNode = actualNode.nodoRaiz
+    salidaInfo = ""
+    for nodoActual in listaNodos:
+        salidaInfo = salidaInfo+str(nodoActual.coste)+". SAT 1 "+nodoActual.sat1.operacion+" "+nodoActual.sat1.objeto+", SAT 2 "+nodoActual.sat2.operacion+" "+nodoActual.sat2.objeto+"\n"
 
+    print (salidaInfo)
     tiempoEjecucionAlgoritmo = finAlgoritmo - inicioAlgoritmo
-    escribirFichero(tiempoEjecucionAlgoritmo, aEstrella.costeTotal, 0,aEstrella.nodosExpandidos)
+    escribirFichero(tiempoEjecucionAlgoritmo, aEstrella.costeTotal, aEstrella.profunidad, aEstrella.nodosExpandidos)
 
 main()

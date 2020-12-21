@@ -21,8 +21,8 @@ class aStar():
     gastoEnergia = None
 
 # -------------------------Estadisticas---------------------------
-    # Tiempo total que tarda el algoritmo en encontrar solucion
-    tiempoAlgoritmo = None
+    # Profundidad
+    profunidad = 0
 
     # Total de nodos que ha expandido el algoritmo
     nodosExpandidos = None
@@ -59,6 +59,9 @@ class aStar():
         if not isFound:
             raise Exception("No se ha encontrado solucion")
         self.nodoFinal = estadoActual
+        self.costeTotal = self.nodoFinal.coste
+        self.nodosExpandidos = len(self.closeList)
+        self.profunidad = self.nodoFinal.coste
 
 
     def crearNodos(self, nodoActual):
@@ -134,11 +137,12 @@ class aStar():
                     listaAcciones[i].append("Retransmitir")
                     # Creo la nueva lista de observables
                     listaObsN = satelites[i].retransmisiones.copy()
-                    listaObsN.pop(0)
+                    nombreObjeto = listaObsN.pop(0)
 
                     # Creo el satelite y lo añado a la lista de satelites
                     gastoEnergia =  satelites[i].energiaDisponible - self.gastoEnergia[i][1]
                     satNuevo = satelite(i, gastoEnergia, bandas, listaObsN, "Retransmitir", matrizObservables)
+                    satNuevo.objeto = nombreObjeto
                     tmp.append(satNuevo) # Add el satelite a la lista de satelites
                     
             # Recargar
@@ -170,9 +174,9 @@ class aStar():
                         matriz[bandas[j]][hora] = 0
                         
                         # Creo el satelite y lo añado a la lista de satelites
-                        
                         gastoEnergia =  satelites[i].energiaDisponible - self.gastoEnergia[i][0]
                         satNuevo = satelite(i, gastoEnergia, bandas, listaObsN, "Observar", matriz)
+                        satNuevo.objeto = nuevoDato
                         tmp.append(satNuevo) # Add el satelite a la lista de satelites
             listaSat.append(tmp)
 

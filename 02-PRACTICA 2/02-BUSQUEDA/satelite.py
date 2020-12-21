@@ -20,6 +20,9 @@ class satelite():
     # Puntero a su MatrizObservables
     matrizObservables = None
 
+    # Objeto el cual transmite o observar
+    objeto = ""
+
     # Constructor de satelite
     def __init__(self, idSat, energiaDisponible, bandaOrigen, retransmisiones, operacion, matrizObservables):
         self.idSat = idSat
