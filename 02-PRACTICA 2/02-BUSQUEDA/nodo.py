@@ -76,10 +76,15 @@ class nodo():
             for j in range(len(self.matrizObservables[i])):
                 
                 if(self.matrizObservables[i][j]!=0):
-                    diferencias = diferencias + abs(j-hora)
+                    
+                    if(hora<=j):
+                        diferencias = diferencias + abs(j-hora)
+                        
+                    else:
+                        diferencias = diferencias + j + (len(self.matrizObservables[i]-hora))
+                    
                     diferencias = diferencias + min(abs(i-self.sat1.bandasActuales[0]),abs(i-self.sat1.bandasActuales[1]))
                     diferencias = diferencias + min(abs(i-self.sat2.bandasActuales[0]),abs(i-self.sat2.bandasActuales[1]))
-        
         
         # Lo siguiente es comprobar si los objetos han sido retransmitidos 
         porRetransmitir = len(self.sat1.retransmisiones) + len(self.sat2.retransmisiones) 

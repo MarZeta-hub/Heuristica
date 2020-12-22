@@ -1,49 +1,19 @@
 0. SAT 1 idle , SAT 2 idle 
-1. SAT 1 Observar O1, SAT 2 Girar 
-2. SAT 1 Observar O2, SAT 2 Observar O20
-3. SAT 1 Observar O3, SAT 2 Observar O21
-4. SAT 1 Observar O4, SAT 2 Observar O22
-5. SAT 1 Observar O5, SAT 2 Observar O23
-6. SAT 1 Observar O6, SAT 2 Observar O24
-7. SAT 1 Observar O7, SAT 2 Retransmitir O20
-8. SAT 1 Observar O8, SAT 2 Retransmitir O21
-9. SAT 1 Observar O9, SAT 2 Retransmitir O22
-10. SAT 1 Observar O10, SAT 2 Retransmitir O23
-11. SAT 1 Recargar , SAT 2 Recargar 
-23. SAT 1 Observar O12, SAT 2 Retransmitir O24
-24. SAT 1 Recargar , SAT 2 Recargar 
-25. SAT 1 Retransmitir O1, SAT 2 Recargar 
-26. SAT 1 Recargar , SAT 2 Observar O14
-27. SAT 1 Retransmitir O2, SAT 2 Retransmitir O14
-28. SAT 1 Recargar , SAT 2 Recargar 
-29. SAT 1 Retransmitir O3, SAT 2 Observar O17
-30. SAT 1 Recargar , SAT 2 Recargar 
-31. SAT 1 Retransmitir O4, SAT 2 Retransmitir O17
-32. SAT 1 Recargar , SAT 2 Recargar 
-33. SAT 1 Retransmitir O5, SAT 2 Recargar 
-34. SAT 1 Recargar , SAT 2 Recargar 
-46. SAT 1 Retransmitir O6, SAT 2 Recargar 
-47. SAT 1 Recargar , SAT 2 Observar O19
-48. SAT 1 Retransmitir O7, SAT 2 Retransmitir O19
-49. SAT 1 Recargar , SAT 2 Recargar 
-50. SAT 1 Retransmitir O8, SAT 2 Observar O15
-51. SAT 1 Recargar , SAT 2 Retransmitir O15
-52. SAT 1 Retransmitir O9, SAT 2 Recargar 
-53. SAT 1 Recargar , SAT 2 Observar O18
-54. SAT 1 Retransmitir O10, SAT 2 Retransmitir O18
-55. SAT 1 Recargar , SAT 2 Recargar 
-56. SAT 1 Retransmitir O12, SAT 2 Recargar 
-57. SAT 1 Recargar , SAT 2 Recargar 
-69. SAT 1 Recargar , SAT 2 Recargar 
-70. SAT 1 Observar O13, SAT 2 Recargar 
-71. SAT 1 Retransmitir O13, SAT 2 Recargar 
-72. SAT 1 Recargar , SAT 2 Recargar 
-73. SAT 1 Recargar , SAT 2 Recargar 
-74. SAT 1 Observar O16, SAT 2 Recargar 
-75. SAT 1 Retransmitir O16, SAT 2 Recargar 
-76. SAT 1 Recargar , SAT 2 IDLE 
-77. SAT 1 Recargar , SAT 2 IDLE 
-78. SAT 1 Recargar , SAT 2 IDLE 
-79. SAT 1 Recargar , SAT 2 IDLE 
-80. SAT 1 Observar O11, SAT 2 IDLE 
-92. SAT 1 Retransmitir O11, SAT 2 IDLE 
+1. SAT 1 IDLE , SAT 2 IDLE 
+2. SAT 1 Observar O1, SAT 2 IDLE 
+3. SAT 1 Recargar , SAT 2 IDLE 
+4. SAT 1 Observar O3, SAT 2 IDLE 
+5. SAT 1 Recargar , SAT 2 IDLE 
+6. SAT 1 Retransmitir O1, SAT 2 IDLE 
+7. SAT 1 Recargar , SAT 2 IDLE 
+8. SAT 1 Retransmitir O3, SAT 2 IDLE 
+9. SAT 1 Recargar , SAT 2 IDLE 
+10. SAT 1 IDLE , SAT 2 IDLE 
+11. SAT 1 IDLE , SAT 2 IDLE 
+23. SAT 1 IDLE , SAT 2 IDLE 
+24. SAT 1 IDLE , SAT 2 IDLE 
+25. SAT 1 IDLE , SAT 2 IDLE 
+26. SAT 1 IDLE , SAT 2 IDLE 
+27. SAT 1 Observar O2, SAT 2 IDLE 
+28. SAT 1 Recargar , SAT 2 IDLE 
+29. SAT 1 Retransmitir O2, SAT 2 IDLE 
