@@ -7,6 +7,7 @@ class aStar():
     # Estado del cual partir
     nodoIncial = None
 
+    # Nodo objetivo 
     nodoFinal = None
 
     # Lista donde se guardan los nodos segun su heuristica
@@ -46,20 +47,19 @@ class aStar():
 
     def algoritmo(self):
         isFound = False
-        estadoActual = None
+        nodoActual = None
         while not isFound and len(self.openList) != 0:
-            estadoActual = self.openList.pop(0)
-            #self.printEstado(estadoActual)
-            if self.isNOTSameACloseListNode(estadoActual):
-                self.closeList.append(estadoActual)
-                if self.isFinal(estadoActual):
-                    #print ("NOOOOO")
+            nodoActual = self.openList.pop(0)
+            #self.printnodo(nodoActual)
+            if self.isNOTSameACloseListNode(nodoActual):
+                self.closeList.append(nodoActual)
+                if self.isFinal(nodoActual):
                     isFound = True
-                self.crearNodos(estadoActual)
+                self.crearNodos(nodoActual)
 
         if not isFound:
             raise Exception("No se ha encontrado solucion")
-        self.nodoFinal = estadoActual
+        self.nodoFinal = nodoActual
         self.costeTotal = self.nodoFinal.coste
         self.nodosExpandidos = len(self.closeList)
         self.profunidad = self.nodoFinal.coste
@@ -205,7 +205,7 @@ class aStar():
                         matrizFinal = satelite1.matrizObservables
                     if satelite2.operacion == "Observar":
                         matrizFinal = satelite2.matrizObservables
-                nextState = nodo(nodoActual, matrizFinal, satelite1, satelite2, nuevaHora, costeTotal, listaAcciones)# Creo el estado
+                nextState = nodo(nodoActual, matrizFinal, satelite1, satelite2, nuevaHora, costeTotal, listaAcciones) # Creo el estado
                 
                 if(self.heuristicaSeleccionada==1):
                     nextState.evaluarh1() # Evaluo la heuristica

@@ -103,7 +103,7 @@ def main():
         datosEnergia[i].append(satelites[i][1][3]) # Uds nuevas de Energia
         datosEnergia[i].append(satelites[i][1][4]) # Total capacidad Bateria
 
-    # --Creamos los estados Inical y Final --
+    # --Creamos los nodos Inical y Final --
     nBandas = 4  # Bandas que existen en el problema
     horas = 12  # Horas totales que pueden los satelites obtener y enviar datos
 
@@ -118,7 +118,7 @@ def main():
     sat1 = satelite(0, datosEnergia[0][4], [0, 1], [], "idle", obsInicial)
     sat2 = satelite(1, datosEnergia[1][4], [2, 3], [], "idle", obsInicial)
 
-    # Crear estado Inicial
+    # Crear nodo Inicial
     nodoIncial = nodo(None, obsInicial, sat1, sat2, 0, 0, None)
     
     if(heuristicaSeleccionada==1):
