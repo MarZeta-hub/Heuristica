@@ -18,14 +18,15 @@ problem.addVariable('SAT6.1', ['ANT7', 'ANT9'])
 problem.addVariable('SAT6.2', ['ANT3', 'ANT4', 'ANT5'])
 
 # Restricciones
-# En las restricciones se crea una funcion para cada una de ellas 
+
+# La restriccion de que a cada satelite se le debe asignar una antena va implicita
 
 # Primera restriccion: SAT1 y SAT2 deben tener la misma antena
-
 # Se puede hacer con una restriccion ya creada
 problem.addConstraint(AllEqualConstraint(),['SAT1','SAT2'])
 
 
+# Segunda restriccion: SAT2, SAT4 y SAT5 no deben tener asignada la misma antena
 # Se puede usar una restriccion ya incluida en python constraint
 problem.addConstraint(AllDifferentConstraint(), ['SAT2','SAT4','SAT5'])
 
@@ -41,7 +42,6 @@ problem.addConstraint(comunicacionSAT54, ('SAT5', 'SAT4'))
 
 
 # Cuarta restriccion: si a una solucion se asignan las antenas ANT7 Y ANT12, se les deben asignar ambas a franjas horarias antes de las 12 o despues de las 12
-# FIXME HACER GENERALIZABLE LA RESTRICCION, SINO QUITA PUNTOS???
 def restFranjas(sat32, sat5, sat61, sat4):
 
     if(sat32=='ANT7' and sat5=='ANT12'):
@@ -56,19 +56,16 @@ def restFranjas(sat32, sat5, sat61, sat4):
 problem.addConstraint(restFranjas, ('SAT3.2','SAT5','SAT6.1','SAT4'))
 
 
-# Ejecucion del problema
-
+# Ejecucion del problema para obtener una solucion
 solution = problem.getSolution()
 print(solution)
 
+# Para obtener TODAS las soluciones por salida de fichero
 solutions = problem.getSolutions()
 print(len(solutions))
 
 
 # Salida por archivo con todas las soluciones
-
 f = open("solutions.txt", "w")
 np.savetxt(f,solutions, delimiter='   ', fmt='%s')
 f.close()
-
-# TODO -LIMPIAR CODIGO
