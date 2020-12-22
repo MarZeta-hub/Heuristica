@@ -45,12 +45,12 @@ class aStar():
         self.openList.append(nodoIncial)
         self.heuristicaSeleccionada = heuristicaSeleccionada
 
+    #Algoritmo de A estrella
     def algoritmo(self):
         isFound = False
         nodoActual = None
         while not isFound and len(self.openList) != 0:
             nodoActual = self.openList.pop(0)
-            #self.printnodo(nodoActual)
             if self.isNOTSameACloseListNode(nodoActual):
                 self.closeList.append(nodoActual)
                 if self.isFinal(nodoActual):
@@ -198,19 +198,22 @@ class aStar():
         for satelite1 in listaSat[0]:
             for satelite2 in listaSat[1]:
                 matrizFinal = matrizObservables
+                # En el caso de que ambos satelites observen tengo que crear una matriz nueva
                 if satelite2.operacion == "Observar" and satelite1.operacion == "Observar":
                     matrizFinal = self.matrizIgualada(satelite1.matrizObservables, satelite2.matrizObservables)
                 else:
+                    # En el caso de que solo observe el satelite 1 cambio la matriz para el primero
                     if satelite1.operacion == "Observar":
                         matrizFinal = satelite1.matrizObservables
+                    # En el caso de que solo observe el satelite 2 cambio la matriz para el segundo
                     if satelite2.operacion == "Observar":
                         matrizFinal = satelite2.matrizObservables
                 nextState = nodo(nodoActual, matrizFinal, satelite1, satelite2, nuevaHora, costeTotal, listaAcciones) # Creo el estado
                 
                 if(self.heuristicaSeleccionada==1):
-                    nextState.evaluarh1() # Evaluo la heuristica
+                    nextState.evaluarh1() # Evaluo la heuristica 1
                 if(self.heuristicaSeleccionada==2):
-                    nextState.evaluarh2() # Evaluo la heuristica
+                    nextState.evaluarh2() # Evaluo la heuristica 2
 
                 nextState.evaluar()
                 listaAbiertaNuevos.append(nextState) # Inserto el nodo en una lista auxiliar
@@ -221,7 +224,7 @@ class aStar():
         for elemento in listaAbierta:
             self.openList.insert(0,elemento)
 
-
+    # Si el nodo actual no es igual a ningún nodo ya expandido
     def isNOTSameACloseListNode(self, nodoActual):
         for nodoClose in self.closeList:
             if nodoActual.compare(nodoClose) == True:
@@ -229,6 +232,7 @@ class aStar():
                     return False
         return True
 
+    # Si el nodo actual es final o no
     def isFinal(self, nodoActual):
         for i in range(len(nodoActual.matrizObservables)):
             for j in range(len(nodoActual.matrizObservables[i])):
@@ -236,7 +240,6 @@ class aStar():
                     return False
 
         if len(nodoActual.sat1.retransmisiones ) > 0 :
-            #print (nodoActual.sat1.retransmisiones ) 
             return False
 
         if len(nodoActual.sat2.retransmisiones ) > 0 :
@@ -244,6 +247,7 @@ class aStar():
 
         return True
 
+    # Para poder igualar las matrices en caso de que observen los dos satelites
     def matrizIgualada(self, matriz1, matriz2):
         matrizFinal = matriz1.copy()
         for i in range(len(matriz1)):
@@ -252,6 +256,7 @@ class aStar():
                     matrizFinal[i][j] = 0
         return matrizFinal
 
+    # Función de log en el qeu se observa cada uno de los satelites
     def printEstado(self, actualNode):
             print ("Satelite 1","BANDAS", actualNode.sat1.bandasActuales," Operacion", actualNode.sat1.operacion, "\n Retransmisiones", actualNode.sat1.retransmisiones)
             print ("Satelite 2","BANDAS", actualNode.sat2.bandasActuales," Operacion", actualNode.sat2.operacion, "\n Retransmisiones", actualNode.sat2.retransmisiones)

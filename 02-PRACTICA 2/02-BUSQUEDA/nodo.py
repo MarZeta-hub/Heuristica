@@ -97,27 +97,34 @@ class nodo():
         self.heuristica = valorh2
 
 
+    # Comparo entre los nodos en busca de ver si los dos son iguales
     def compare(self, estado2):
 
+        # Si la matriz es igual
         for i in range(len(self.matrizObservables)):
             for j in range(len(self.matrizObservables[i])):
                 if self.matrizObservables[i][j] != estado2.matrizObservables[i][j]:
                     return False
 
+        # Si las transmisiones son iguales
         if len(self.sat1.retransmisiones ) != len(estado2.sat1.retransmisiones ):
             return False
 
         if len(self.sat2.retransmisiones ) != len(estado2.sat2.retransmisiones ):
             return False
 
+        # Si las horas de los nodos son iguales
         if self.horaActual != estado2.horaActual:
             return False
-      
+
+        # Si las bandas son iguales 
         if self.sat1.bandasActuales != estado2.sat1.bandasActuales:
             return False
 
         if self.sat2.bandasActuales != estado2.sat2.bandasActuales:
             return False
+
+        # La operación anterior no es recomendable que tenga que ser igual
         """
         if self.sat1.operacion != estado2.sat1.operacion :
             return False
@@ -125,6 +132,8 @@ class nodo():
         if self.sat2.operacion  != estado2.sat2.operacion :
             return False
         """
+
+        # Que la lista de retransmisiones sean iguales
         for i in range(len (self.sat1.retransmisiones) ):
             if self.sat1.retransmisiones != estado2.sat1.retransmisiones:
                 return False
@@ -133,4 +142,5 @@ class nodo():
             if self.sat2.retransmisiones != estado2.sat2.retransmisiones:
                 return False
         
+        # En caso de que todo lo anterior sea igual, se devolverá un True
         return True

@@ -81,6 +81,8 @@ def escribirFichero(tiempoEjecucionAlgoritmo, costeTotal, LongitudPlan, nodosExp
     longPlan = "Longitud del plan: %i \n" % LongitudPlan
     expandedNodes = "Nodos expandidos: %i \n" % nodosExpandidos
 
+    print(time, totalcost, longPlan, expandedNodes)
+    
     f.write(time)
     f.write(totalcost)
     f.write(longPlan)
@@ -115,8 +117,8 @@ def main():
         obsInicial[objetos[i][0]][objetos[i][1]] = i + 1
 
         # Crear Satelites y 
-    sat1 = satelite(0, datosEnergia[0][4], [0, 1], [], "idle", obsInicial)
-    sat2 = satelite(1, datosEnergia[1][4], [2, 3], [], "idle", obsInicial)
+    sat1 = satelite(0, datosEnergia[0][4], [0, 1], [], "IDLE", obsInicial)
+    sat2 = satelite(1, datosEnergia[1][4], [2, 3], [], "IDLE", obsInicial)
 
     # Crear nodo Inicial
     nodoIncial = nodo(None, obsInicial, sat1, sat2, 0, 0, None)
@@ -144,7 +146,7 @@ def main():
     listaNodos = []
     while noTengoPadre != False:
         listaNodos.insert(0, actualNode)
-        aEstrella.printEstado(actualNode)
+        #aEstrella.printEstado(actualNode)
         if actualNode.nodoRaiz == None:
             break
         else:
@@ -160,7 +162,6 @@ def main():
     f.write(salidaInfo)
 
     f.close()
-
 
     tiempoEjecucionAlgoritmo = finAlgoritmo - inicioAlgoritmo
     escribirFichero(tiempoEjecucionAlgoritmo, aEstrella.costeTotal, aEstrella.profunidad, aEstrella.nodosExpandidos)
